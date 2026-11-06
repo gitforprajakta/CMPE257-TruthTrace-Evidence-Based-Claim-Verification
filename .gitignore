@@ -1,0 +1,9 @@
+data/
+results/models/
+__pycache__/
+.venv/
+.ipynb_checkpoints/
+*.joblib
+*.npy
+.pytest_cache/
+*.pyc
