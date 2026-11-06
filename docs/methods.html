@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Methods · TruthTrace</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="brand">
+      <a href="index.html">TruthTrace</a>
+      <p>Evidence-based claim verification</p>
+    </div>
+    <nav aria-label="Primary">
+      
+      <a href="index.html" >Home</a>
+      
+      <a href="data.html" >Data</a>
+      
+      <a href="methods.html" aria-current="page">Methods</a>
+      
+      <a href="results.html" >Results</a>
+      
+      <a href="errors.html" >Errors</a>
+      
+      <a href="demo.html" >Demo</a>
+      
+      <a href="team.html" >Team</a>
+      
+    </nav>
+  </header>
+  <main id="content">
+    
+<h1>Methods</h1>
+<p>Both models are logistic regression. They differ in how claim and evidence become features. The tuning budget is the same: the same inverse-regularization grid, the same stratified folds, and the same macro-F1 selection rule.</p>
+
+<h2>TF-IDF + logistic regression</h2>
+<p>Stage 1 model. Word TF-IDF on the claim, on the evidence, and a numeric flag for whether any evidence was present. Claim-only and evidence-only ablations drop the other text.</p>
+<div class="pipeline" aria-label="TF-IDF pipeline">
+  <div class="step">Claim</div>
+  <span class="arrow" aria-hidden="true">+</span>
+  <div class="step">Evidence</div>
+  <span class="arrow" aria-hidden="true">→</span>
+  <div class="step">TF-IDF</div>
+  <span class="arrow" aria-hidden="true">→</span>
+  <div class="step">Logistic regression</div>
+  <span class="arrow" aria-hidden="true">→</span>
+  <div class="step">Verdict</div>
+</div>
+
+<h2>Sentence-BERT + logistic regression</h2>
+<p>Stage 2 model. A sentence encoder embeds the claim and the evidence. Evidence is embedded per question-answer pair and averaged. The classifier sees the claim vector, the evidence vector, their absolute difference, and their product, plus the evidence flag in the full setting.</p>
+<div class="pipeline" aria-label="Sentence-BERT pipeline">
+  <div class="step">Claim</div>
+  <span class="arrow" aria-hidden="true">+</span>
+  <div class="step">Evidence pairs</div>
+  <span class="arrow" aria-hidden="true">→</span>
+  <div class="step">Sentence-BERT</div>
+  <span class="arrow" aria-hidden="true">→</span>
+  <div class="step">[u, v, |u−v|, u·v]</div>
+  <span class="arrow" aria-hidden="true">→</span>
+  <div class="step">Logistic regression</div>
+  <span class="arrow" aria-hidden="true">→</span>
+  <div class="step">Verdict</div>
+</div>
+
+<h2>Evaluation protocol</h2>
+<ul>
+  <li>Train on the official AVeriTeC train split. Evaluate once on the official dev split.</li>
+  <li>Stratified cross-validation uses 5 folds, shuffled with seed 42.</li>
+  <li>The shared inverse-regularization grid is 0.01, 0.1, 1, 10, 100.</li>
+  <li>TF-IDF also chooses a word or word-plus-bigram range by the same cross-validated macro-F1.</li>
+  <li>Class weights are balanced. The selection metric is macro-F1.</li>
+  <li>Test-set macro-F1 is reported with a percentile bootstrap interval of 1000 resamples.</li>
+  <li>Stage 2 compares the full models with McNemar's test and a paired bootstrap of the macro-F1 difference.</li>
+  <li>A majority-class classifier is the baseline. It uses the full split only.</li>
+</ul>
+<p>The encoder named in the plan for Stage 2 is sentence-transformers/all-MiniLM-L6-v2.</p>
+
+  </main>
+  <footer>
+    <p>Decision-support prototype for CMPE 257. It is not a source of truth.</p>
+  </footer>
+  <script src="assets/tabs.js"></script>
+</body>
+</html>

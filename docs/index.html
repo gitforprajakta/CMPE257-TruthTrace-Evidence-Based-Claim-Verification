@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home · TruthTrace</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="brand">
+      <a href="index.html">TruthTrace</a>
+      <p>Evidence-based claim verification</p>
+    </div>
+    <nav aria-label="Primary">
+      
+      <a href="index.html" aria-current="page">Home</a>
+      
+      <a href="data.html" >Data</a>
+      
+      <a href="methods.html" >Methods</a>
+      
+      <a href="results.html" >Results</a>
+      
+      <a href="errors.html" >Errors</a>
+      
+      <a href="demo.html" >Demo</a>
+      
+      <a href="team.html" >Team</a>
+      
+    </nav>
+  </header>
+  <main id="content">
+    
+<h1>Can a semantic model beat TF-IDF on the same claims?</h1>
+<p class="lede">TruthTrace compares two claim-verification models on AVeriTeC: one traditional, one semantic. Both see the same claims, the same evidence, and the same four verdicts.</p>
+<p class="question">Can a semantic model (Sentence-BERT + logistic regression) beat a traditional model (TF-IDF + logistic regression) for claim verification, given identical data, splits, tuning budget, and metrics?</p>
+
+<h2>Headline results</h2>
+<p>Accuracy and macro-F1 on the evaluation split. Source: results/metrics.</p>
+<div class="cards">
+  
+  <article class="card">
+    <h3>Majority</h3>
+    
+    <p class="metric">Accuracy 0.626</p>
+    <p class="metric">Macro-F1 0.193</p>
+    
+  </article>
+  
+  <article class="card">
+    <h3>TF-IDF + LR</h3>
+    
+    <p class="metric">Accuracy 0.647</p>
+    <p class="metric">Macro-F1 0.469</p>
+    
+  </article>
+  
+  <article class="card">
+    <h3>SBERT + LR</h3>
+    
+    <div class="pending" role="status">Pending: waiting for results/metrics/sbert_lr_full.json</div>
+    
+  </article>
+  
+</div>
+
+<h2>What the comparison says</h2>
+
+<div class="pending" role="status">Pending: waiting for results/tables/verdict.md</div>
+
+
+<p class="disclaimer"><strong>Decision support only.</strong> A verdict is a model's reading of this benchmark. It is not a determination that a claim is true or false in the world.</p>
+
+  </main>
+  <footer>
+    <p>Decision-support prototype for CMPE 257. It is not a source of truth.</p>
+  </footer>
+  <script src="assets/tabs.js"></script>
+</body>
+</html>

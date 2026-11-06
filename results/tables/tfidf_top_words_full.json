@@ -1,0 +1,410 @@
+{
+  "Supported": [
+    {
+      "feature": "yes",
+      "source": "evidence",
+      "weight": 1.2477011628761103
+    },
+    {
+      "feature": "yes explanation",
+      "source": "evidence",
+      "weight": 1.0991747934937555
+    },
+    {
+      "feature": "2017",
+      "source": "claim",
+      "weight": 0.9984439178912079
+    },
+    {
+      "feature": "over",
+      "source": "claim",
+      "weight": 0.85574982310658
+    },
+    {
+      "feature": "2018",
+      "source": "claim",
+      "weight": 0.8535687154439495
+    },
+    {
+      "feature": "2018",
+      "source": "evidence",
+      "weight": 0.8457452773191118
+    },
+    {
+      "feature": "average",
+      "source": "evidence",
+      "weight": 0.8208477340749999
+    },
+    {
+      "feature": "how many",
+      "source": "evidence",
+      "weight": 0.7722525846107386
+    },
+    {
+      "feature": "launched",
+      "source": "claim",
+      "weight": 0.7596772268901875
+    },
+    {
+      "feature": "2019",
+      "source": "evidence",
+      "weight": 0.7270808104853912
+    },
+    {
+      "feature": "kenya",
+      "source": "evidence",
+      "weight": 0.6729759077680402
+    },
+    {
+      "feature": "health",
+      "source": "claim",
+      "weight": 0.6662705511708923
+    },
+    {
+      "feature": "average",
+      "source": "claim",
+      "weight": 0.6641005458154859
+    },
+    {
+      "feature": "in 2017",
+      "source": "claim",
+      "weight": 0.643540036963185
+    },
+    {
+      "feature": "than",
+      "source": "claim",
+      "weight": 0.6252099726964508
+    },
+    {
+      "feature": "many",
+      "source": "evidence",
+      "weight": 0.6243932097086663
+    },
+    {
+      "feature": "growth",
+      "source": "claim",
+      "weight": 0.61149169216012
+    },
+    {
+      "feature": "kenya",
+      "source": "claim",
+      "weight": 0.6109773939378514
+    },
+    {
+      "feature": "does",
+      "source": "claim",
+      "weight": 0.610038181761213
+    },
+    {
+      "feature": "years",
+      "source": "claim",
+      "weight": 0.6027076900342966
+    }
+  ],
+  "Refuted": [
+    {
+      "feature": "no explanation",
+      "source": "evidence",
+      "weight": 1.5540300011494566
+    },
+    {
+      "feature": "no",
+      "source": "evidence",
+      "weight": 1.3441869405373734
+    },
+    {
+      "feature": "coronavirus",
+      "source": "claim",
+      "weight": 1.1605726592345822
+    },
+    {
+      "feature": "news",
+      "source": "evidence",
+      "weight": 1.1068275457012136
+    },
+    {
+      "feature": "not",
+      "source": "evidence",
+      "weight": 1.0593648308535606
+    },
+    {
+      "feature": "claim",
+      "source": "evidence",
+      "weight": 0.9747525373729706
+    },
+    {
+      "feature": "is",
+      "source": "claim",
+      "weight": 0.9343472730847818
+    },
+    {
+      "feature": "website",
+      "source": "evidence",
+      "weight": 0.886185074327234
+    },
+    {
+      "feature": "is no",
+      "source": "evidence",
+      "weight": 0.784690800396881
+    },
+    {
+      "feature": "fake",
+      "source": "evidence",
+      "weight": 0.747905044001818
+    },
+    {
+      "feature": "the claim",
+      "source": "evidence",
+      "weight": 0.7088211889057487
+    },
+    {
+      "feature": "there is",
+      "source": "evidence",
+      "weight": 0.7074549898223484
+    },
+    {
+      "feature": "billion",
+      "source": "claim",
+      "weight": 0.6962594218210945
+    },
+    {
+      "feature": "cure",
+      "source": "claim",
+      "weight": 0.6940291600077804
+    },
+    {
+      "feature": "coronavirus",
+      "source": "evidence",
+      "weight": 0.6513696458052657
+    },
+    {
+      "feature": "the",
+      "source": "claim",
+      "weight": 0.6338626361569919
+    },
+    {
+      "feature": "tweet",
+      "source": "evidence",
+      "weight": 0.6144242639584899
+    },
+    {
+      "feature": "people",
+      "source": "claim",
+      "weight": 0.6045061507767304
+    },
+    {
+      "feature": "former",
+      "source": "claim",
+      "weight": 0.6043511088533143
+    },
+    {
+      "feature": "account",
+      "source": "evidence",
+      "weight": 0.6035842761166463
+    }
+  ],
+  "Not Enough Evidence": [
+    {
+      "feature": "answer could",
+      "source": "evidence",
+      "weight": 3.3875247358151053
+    },
+    {
+      "feature": "no answer",
+      "source": "evidence",
+      "weight": 3.3803278744035268
+    },
+    {
+      "feature": "answer",
+      "source": "evidence",
+      "weight": 3.3726144976401953
+    },
+    {
+      "feature": "be found",
+      "source": "evidence",
+      "weight": 3.34042423847472
+    },
+    {
+      "feature": "could be",
+      "source": "evidence",
+      "weight": 3.3339654692953005
+    },
+    {
+      "feature": "could",
+      "source": "evidence",
+      "weight": 2.8821686730012774
+    },
+    {
+      "feature": "found",
+      "source": "evidence",
+      "weight": 2.7609877089130976
+    },
+    {
+      "feature": "be",
+      "source": "evidence",
+      "weight": 1.6891424963145008
+    },
+    {
+      "feature": "found sep",
+      "source": "evidence",
+      "weight": 1.6619052098514266
+    },
+    {
+      "feature": "no",
+      "source": "evidence",
+      "weight": 1.589495380654665
+    },
+    {
+      "feature": "had",
+      "source": "claim",
+      "weight": 1.1019515576788845
+    },
+    {
+      "feature": "cancer",
+      "source": "evidence",
+      "weight": 1.0296569212394002
+    },
+    {
+      "feature": "there",
+      "source": "evidence",
+      "weight": 0.9948118235815763
+    },
+    {
+      "feature": "data",
+      "source": "evidence",
+      "weight": 0.9638828723926555
+    },
+    {
+      "feature": "by",
+      "source": "claim",
+      "weight": 0.9028129712701671
+    },
+    {
+      "feature": "rates",
+      "source": "claim",
+      "weight": 0.8930374925076384
+    },
+    {
+      "feature": "cancer",
+      "source": "claim",
+      "weight": 0.8818238102315444
+    },
+    {
+      "feature": "increase",
+      "source": "claim",
+      "weight": 0.8633104907701169
+    },
+    {
+      "feature": "is there",
+      "source": "evidence",
+      "weight": 0.7802479165855553
+    },
+    {
+      "feature": "evidence",
+      "source": "evidence",
+      "weight": 0.7685146697757833
+    }
+  ],
+  "Conflicting Evidence/Cherrypicking": [
+    {
+      "feature": "coronavirus is",
+      "source": "claim",
+      "weight": 1.108396845645886
+    },
+    {
+      "feature": "biden",
+      "source": "claim",
+      "weight": 0.9619764196373828
+    },
+    {
+      "feature": "would",
+      "source": "evidence",
+      "weight": 0.925942306766593
+    },
+    {
+      "feature": "has an",
+      "source": "claim",
+      "weight": 0.9202601683588817
+    },
+    {
+      "feature": "decided",
+      "source": "claim",
+      "weight": 0.8715216578208494
+    },
+    {
+      "feature": "sep",
+      "source": "evidence",
+      "weight": 0.8507659539261159
+    },
+    {
+      "feature": "was",
+      "source": "claim",
+      "weight": 0.8374786168040492
+    },
+    {
+      "feature": "chemotherapy",
+      "source": "claim",
+      "weight": 0.8283930546379965
+    },
+    {
+      "feature": "saving",
+      "source": "claim",
+      "weight": 0.8161526686155527
+    },
+    {
+      "feature": "can",
+      "source": "claim",
+      "weight": 0.8131099633277667
+    },
+    {
+      "feature": "be spread",
+      "source": "claim",
+      "weight": 0.8039226742886817
+    },
+    {
+      "feature": "may",
+      "source": "evidence",
+      "weight": 0.7990484712940359
+    },
+    {
+      "feature": "go",
+      "source": "claim",
+      "weight": 0.7776634474389847
+    },
+    {
+      "feature": "pay",
+      "source": "claim",
+      "weight": 0.7756285250586731
+    },
+    {
+      "feature": "security",
+      "source": "claim",
+      "weight": 0.7658592337409932
+    },
+    {
+      "feature": "or",
+      "source": "evidence",
+      "weight": 0.7616143903430024
+    },
+    {
+      "feature": "decline",
+      "source": "claim",
+      "weight": 0.7499729706262619
+    },
+    {
+      "feature": "yes explanation",
+      "source": "evidence",
+      "weight": 0.746357153239368
+    },
+    {
+      "feature": "was opposed",
+      "source": "claim",
+      "weight": 0.7453106963541354
+    },
+    {
+      "feature": "yes",
+      "source": "evidence",
+      "weight": 0.7452907648983395
+    }
+  ]
+}

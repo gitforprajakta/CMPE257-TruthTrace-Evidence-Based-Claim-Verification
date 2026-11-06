@@ -1,0 +1,488 @@
+claim_id,y_true,y_pred,correct,proba_Supported,proba_Refuted,proba_Not Enough Evidence,proba_Conflicting Evidence/Cherrypicking
+0,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+1,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+2,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+3,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+4,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+5,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+6,Supported,Refuted,0,0.0,1.0,0.0,0.0
+7,Supported,Refuted,0,0.0,1.0,0.0,0.0
+8,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+9,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+10,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+11,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+12,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+13,Supported,Refuted,0,0.0,1.0,0.0,0.0
+14,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+15,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+16,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+17,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+18,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+19,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+20,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+21,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+22,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+23,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+24,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+25,Supported,Refuted,0,0.0,1.0,0.0,0.0
+26,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+27,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+28,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+29,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+30,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+31,Supported,Refuted,0,0.0,1.0,0.0,0.0
+32,Supported,Refuted,0,0.0,1.0,0.0,0.0
+33,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+34,Supported,Refuted,0,0.0,1.0,0.0,0.0
+35,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+36,Supported,Refuted,0,0.0,1.0,0.0,0.0
+37,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+38,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+39,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+40,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+41,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+42,Supported,Refuted,0,0.0,1.0,0.0,0.0
+43,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+44,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+45,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+46,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+47,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+48,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+49,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+50,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+51,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+52,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+53,Supported,Refuted,0,0.0,1.0,0.0,0.0
+54,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+55,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+56,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+57,Supported,Refuted,0,0.0,1.0,0.0,0.0
+58,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+59,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+60,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+61,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+62,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+63,Supported,Refuted,0,0.0,1.0,0.0,0.0
+64,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+65,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+66,Supported,Refuted,0,0.0,1.0,0.0,0.0
+67,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+68,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+69,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+70,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+71,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+72,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+73,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+74,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+75,Supported,Refuted,0,0.0,1.0,0.0,0.0
+76,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+77,Supported,Refuted,0,0.0,1.0,0.0,0.0
+78,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+79,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+80,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+81,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+82,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+83,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+84,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+85,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+86,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+87,Supported,Refuted,0,0.0,1.0,0.0,0.0
+88,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+89,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+90,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+91,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+92,Supported,Refuted,0,0.0,1.0,0.0,0.0
+93,Supported,Refuted,0,0.0,1.0,0.0,0.0
+94,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+95,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+96,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+97,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+98,Supported,Refuted,0,0.0,1.0,0.0,0.0
+99,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+100,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+101,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+102,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+103,Supported,Refuted,0,0.0,1.0,0.0,0.0
+104,Supported,Refuted,0,0.0,1.0,0.0,0.0
+105,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+106,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+107,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+108,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+109,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+110,Supported,Refuted,0,0.0,1.0,0.0,0.0
+111,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+112,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+113,Supported,Refuted,0,0.0,1.0,0.0,0.0
+114,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+115,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+116,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+117,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+118,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+119,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+120,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+121,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+122,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+123,Supported,Refuted,0,0.0,1.0,0.0,0.0
+124,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+125,Supported,Refuted,0,0.0,1.0,0.0,0.0
+126,Supported,Refuted,0,0.0,1.0,0.0,0.0
+127,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+128,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+129,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+130,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+131,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+132,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+133,Supported,Refuted,0,0.0,1.0,0.0,0.0
+134,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+135,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+136,Supported,Refuted,0,0.0,1.0,0.0,0.0
+137,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+138,Supported,Refuted,0,0.0,1.0,0.0,0.0
+139,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+140,Supported,Refuted,0,0.0,1.0,0.0,0.0
+141,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+142,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+143,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+144,Supported,Refuted,0,0.0,1.0,0.0,0.0
+145,Supported,Refuted,0,0.0,1.0,0.0,0.0
+146,Supported,Refuted,0,0.0,1.0,0.0,0.0
+147,Supported,Refuted,0,0.0,1.0,0.0,0.0
+148,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+149,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+150,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+151,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+152,Supported,Refuted,0,0.0,1.0,0.0,0.0
+153,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+154,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+155,Supported,Refuted,0,0.0,1.0,0.0,0.0
+156,Supported,Refuted,0,0.0,1.0,0.0,0.0
+157,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+158,Supported,Refuted,0,0.0,1.0,0.0,0.0
+159,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+160,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+161,Supported,Refuted,0,0.0,1.0,0.0,0.0
+162,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+163,Supported,Refuted,0,0.0,1.0,0.0,0.0
+164,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+165,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+166,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+167,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+168,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+169,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+170,Supported,Refuted,0,0.0,1.0,0.0,0.0
+171,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+172,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+173,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+174,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+175,Supported,Refuted,0,0.0,1.0,0.0,0.0
+176,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+177,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+178,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+179,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+180,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+181,Supported,Refuted,0,0.0,1.0,0.0,0.0
+182,Supported,Refuted,0,0.0,1.0,0.0,0.0
+183,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+184,Supported,Refuted,0,0.0,1.0,0.0,0.0
+185,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+186,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+187,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+188,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+189,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+190,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+191,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+192,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+193,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+194,Supported,Refuted,0,0.0,1.0,0.0,0.0
+195,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+196,Supported,Refuted,0,0.0,1.0,0.0,0.0
+197,Supported,Refuted,0,0.0,1.0,0.0,0.0
+198,Supported,Refuted,0,0.0,1.0,0.0,0.0
+199,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+200,Supported,Refuted,0,0.0,1.0,0.0,0.0
+201,Supported,Refuted,0,0.0,1.0,0.0,0.0
+202,Supported,Refuted,0,0.0,1.0,0.0,0.0
+203,Supported,Refuted,0,0.0,1.0,0.0,0.0
+204,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+205,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+206,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+207,Supported,Refuted,0,0.0,1.0,0.0,0.0
+208,Supported,Refuted,0,0.0,1.0,0.0,0.0
+209,Supported,Refuted,0,0.0,1.0,0.0,0.0
+210,Supported,Refuted,0,0.0,1.0,0.0,0.0
+211,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+212,Supported,Refuted,0,0.0,1.0,0.0,0.0
+213,Supported,Refuted,0,0.0,1.0,0.0,0.0
+214,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+215,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+216,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+217,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+218,Supported,Refuted,0,0.0,1.0,0.0,0.0
+219,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+220,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+221,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+222,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+223,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+224,Supported,Refuted,0,0.0,1.0,0.0,0.0
+225,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+226,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+227,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+228,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+229,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+230,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+231,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+232,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+233,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+234,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+235,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+236,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+237,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+238,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+239,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+240,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+241,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+242,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+243,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+244,Supported,Refuted,0,0.0,1.0,0.0,0.0
+245,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+246,Supported,Refuted,0,0.0,1.0,0.0,0.0
+247,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+248,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+249,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+250,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+251,Supported,Refuted,0,0.0,1.0,0.0,0.0
+252,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+253,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+254,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+255,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+256,Supported,Refuted,0,0.0,1.0,0.0,0.0
+257,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+258,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+259,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+260,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+261,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+262,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+263,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+264,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+265,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+266,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+267,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+268,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+269,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+270,Supported,Refuted,0,0.0,1.0,0.0,0.0
+271,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+272,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+273,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+274,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+275,Supported,Refuted,0,0.0,1.0,0.0,0.0
+276,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+277,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+278,Supported,Refuted,0,0.0,1.0,0.0,0.0
+279,Supported,Refuted,0,0.0,1.0,0.0,0.0
+280,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+281,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+282,Supported,Refuted,0,0.0,1.0,0.0,0.0
+283,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+284,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+285,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+286,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+287,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+288,Supported,Refuted,0,0.0,1.0,0.0,0.0
+289,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+290,Supported,Refuted,0,0.0,1.0,0.0,0.0
+291,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+292,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+293,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+294,Supported,Refuted,0,0.0,1.0,0.0,0.0
+295,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+296,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+297,Supported,Refuted,0,0.0,1.0,0.0,0.0
+298,Supported,Refuted,0,0.0,1.0,0.0,0.0
+299,Supported,Refuted,0,0.0,1.0,0.0,0.0
+300,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+301,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+302,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+303,Supported,Refuted,0,0.0,1.0,0.0,0.0
+304,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+305,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+306,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+307,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+308,Supported,Refuted,0,0.0,1.0,0.0,0.0
+309,Supported,Refuted,0,0.0,1.0,0.0,0.0
+310,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+311,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+312,Supported,Refuted,0,0.0,1.0,0.0,0.0
+313,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+314,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+315,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+316,Supported,Refuted,0,0.0,1.0,0.0,0.0
+317,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+318,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+319,Supported,Refuted,0,0.0,1.0,0.0,0.0
+320,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+321,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+322,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+323,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+324,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+325,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+326,Supported,Refuted,0,0.0,1.0,0.0,0.0
+327,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+328,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+329,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+330,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+331,Supported,Refuted,0,0.0,1.0,0.0,0.0
+332,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+333,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+334,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+335,Supported,Refuted,0,0.0,1.0,0.0,0.0
+336,Supported,Refuted,0,0.0,1.0,0.0,0.0
+337,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+338,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+339,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+340,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+341,Supported,Refuted,0,0.0,1.0,0.0,0.0
+342,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+343,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+344,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+345,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+346,Supported,Refuted,0,0.0,1.0,0.0,0.0
+347,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+348,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+349,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+350,Supported,Refuted,0,0.0,1.0,0.0,0.0
+351,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+352,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+353,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+354,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+355,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+356,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+357,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+358,Supported,Refuted,0,0.0,1.0,0.0,0.0
+359,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+360,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+361,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+362,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+363,Supported,Refuted,0,0.0,1.0,0.0,0.0
+364,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+365,Supported,Refuted,0,0.0,1.0,0.0,0.0
+366,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+367,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+368,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+369,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+370,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+371,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+372,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+373,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+374,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+375,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+376,Supported,Refuted,0,0.0,1.0,0.0,0.0
+377,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+378,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+379,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+380,Supported,Refuted,0,0.0,1.0,0.0,0.0
+381,Supported,Refuted,0,0.0,1.0,0.0,0.0
+382,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+383,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+384,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+385,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+386,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+387,Supported,Refuted,0,0.0,1.0,0.0,0.0
+388,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+389,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+390,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+391,Supported,Refuted,0,0.0,1.0,0.0,0.0
+392,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+393,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+394,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+395,Supported,Refuted,0,0.0,1.0,0.0,0.0
+396,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+397,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+398,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+399,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+400,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+401,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+402,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+403,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+404,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+405,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+406,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+407,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+408,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+409,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+410,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+411,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+412,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+413,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+414,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+415,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+416,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+417,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+418,Supported,Refuted,0,0.0,1.0,0.0,0.0
+419,Supported,Refuted,0,0.0,1.0,0.0,0.0
+420,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+421,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+422,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+423,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+424,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+425,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+426,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+427,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+428,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+429,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+430,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+431,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+432,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+433,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+434,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+435,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+436,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+437,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+438,Supported,Refuted,0,0.0,1.0,0.0,0.0
+439,Supported,Refuted,0,0.0,1.0,0.0,0.0
+440,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+441,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+442,Supported,Refuted,0,0.0,1.0,0.0,0.0
+443,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+444,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+445,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+446,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+447,Supported,Refuted,0,0.0,1.0,0.0,0.0
+448,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+449,Supported,Refuted,0,0.0,1.0,0.0,0.0
+450,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+451,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+452,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+453,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+454,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+455,Supported,Refuted,0,0.0,1.0,0.0,0.0
+456,Supported,Refuted,0,0.0,1.0,0.0,0.0
+457,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+458,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+459,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+460,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+461,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+462,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+463,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+464,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+465,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+466,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+467,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+468,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+469,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+470,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+471,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+472,Supported,Refuted,0,0.0,1.0,0.0,0.0
+473,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+474,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+475,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+476,Supported,Refuted,0,0.0,1.0,0.0,0.0
+477,Supported,Refuted,0,0.0,1.0,0.0,0.0
+478,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+479,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+480,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+481,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+482,Refuted,Refuted,1,0.0,1.0,0.0,0.0
+483,Conflicting Evidence/Cherrypicking,Refuted,0,0.0,1.0,0.0,0.0
+484,Supported,Refuted,0,0.0,1.0,0.0,0.0
+485,Not Enough Evidence,Refuted,0,0.0,1.0,0.0,0.0
+486,Refuted,Refuted,1,0.0,1.0,0.0,0.0

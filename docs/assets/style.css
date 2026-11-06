@@ -1,0 +1,205 @@
+:root {
+  --bg: #f4f6f8;
+  --card: #ffffff;
+  --text: #1b242c;
+  --muted: #5c6b78;
+  --accent: #0f6e6b;
+  --accent-soft: #e5f4f3;
+  --pending: #8a5a00;
+  --pending-bg: #fff6e4;
+  --border: #d9e0e7;
+  --shadow: 0 8px 24px rgba(22, 34, 46, 0.06);
+  --max: 1040px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12171c;
+    --card: #1b232b;
+    --text: #e7eef4;
+    --muted: #a9b6c2;
+    --accent: #7fd4ce;
+    --accent-soft: #1a3332;
+    --pending: #f0c27a;
+    --pending-bg: #3a2e18;
+    --border: #2d3944;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+
+a { color: var(--accent); }
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0;
+}
+
+.skip:focus { left: 12px; background: var(--card); padding: 8px; z-index: 2; }
+
+.site-header {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px 8px;
+}
+
+.brand a {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+.brand p {
+  margin: 2px 0 10px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  padding-bottom: 8px;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+nav a[aria-current="page"] {
+  color: var(--accent);
+  font-weight: 650;
+}
+
+main {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 28px 20px 48px;
+}
+
+h1 { font-size: 1.8rem; line-height: 1.25; margin-top: 0; }
+h2 { font-size: 1.25rem; margin-top: 1.8rem; }
+
+.lede { font-size: 1.08rem; }
+
+.question {
+  border-left: 4px solid var(--accent);
+  padding: 8px 14px;
+  background: var(--accent-soft);
+}
+
+.cards, .pred-grid, .pipeline-wrap {
+  display: grid;
+  gap: 14px;
+}
+
+.cards { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+.card, .callout, .pending, figure, .table-wrap, .example {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.card, .example { padding: 14px 16px; overflow-wrap: anywhere; }
+.card h3, .example h3 { margin: 0 0 8px; }
+.card p, .example p { margin: 6px 0; }
+
+.metric { font-size: 1.15rem; font-weight: 650; }
+
+.disclaimer, .callout {
+  padding: 12px 14px;
+  background: var(--accent-soft);
+  border-radius: 12px;
+}
+
+.callout strong { display: block; margin-bottom: 4px; }
+
+.pending {
+  padding: 12px 14px;
+  background: var(--pending-bg);
+  color: var(--pending);
+  border-style: dashed;
+  overflow-wrap: anywhere;
+}
+
+figure { margin: 16px 0; padding: 10px; }
+figure img { width: 100%; height: auto; display: block; }
+figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 8px; }
+
+.table-wrap { overflow-x: auto; padding: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--muted); font-weight: 650; }
+
+.pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 18px;
+}
+
+.step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  min-width: 90px;
+}
+
+.arrow { color: var(--muted); }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.tabs button {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.tabs button[aria-selected="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  .tabs button[aria-selected="true"] { color: #06211f; }
+}
+
+.prewrap { white-space: pre-wrap; }
+
+.panel { margin-top: 8px; }
+.downloads { padding-left: 18px; }
+.downloads a { display: inline-block; margin: 2px 0; }
+
+footer {
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  text-align: center;
+  padding: 18px 12px 28px;
+  font-size: 0.92rem;
+}
+
+code {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.92em;
+}
