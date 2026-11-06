@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Team and references</h1>
+<p>TruthTrace is a CMPE 257 project by Krati Jain and Prajakta Jivanrao Ketkar.</p>
+<div class="cards">
+  <article class="card">
+    <h3>Krati Jain</h3>
+    <p>Stage 1: preprocessing, exploratory analysis, TF-IDF + logistic regression, and this website.</p>
+  </article>
+  <article class="card">
+    <h3>Prajakta Jivanrao Ketkar</h3>
+    <p>Stage 2: Sentence-BERT + logistic regression, comparison, error analysis, and the live demo.</p>
+  </article>
+</div>
+
+<h2>References</h2>
+<ul>
+  <li>Michael Schlichtkrull, Zhijiang Guo, and Andreas Vlachos. <a href="https://arxiv.org/abs/2305.13117">AVeriTeC: A Dataset for Real-world Claim Verification with Evidence from the Web</a>. arXiv:2305.13117.</li>
+  <li>Nils Reimers and Iryna Gurevych. <a href="https://aclanthology.org/D19-1410/">Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</a>. 2019.</li>
+  <li>James Thorne, Andreas Vlachos, Christos Christodoulopoulos, and Arpit Mittal. <a href="https://aclanthology.org/N18-1074/">FEVER: a Large-scale Dataset for Fact Extraction and VERification</a>. 2018. <a href="https://fever.ai/">fever.ai</a>.</li>
+</ul>
+
+<h2>Code and data</h2>
+<ul>
+  <li><a href="https://github.com/MichSchli/AVeriTeC">MichSchli/AVeriTeC</a></li>
+  <li><a href="https://huggingface.co/chenxwh/AVeriTeC">chenxwh/AVeriTeC</a></li>
+  <li><a href="https://huggingface.co/datasets/pminervini/averitec">pminervini/averitec</a></li>
+  <li><a href="https://github.com/UKPLab/sentence-transformers">UKPLab/sentence-transformers</a></li>
+</ul>
+{% endblock %}

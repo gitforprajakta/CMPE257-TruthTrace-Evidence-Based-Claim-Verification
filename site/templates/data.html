@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Data</h1>
+<p>AVeriTeC is a real-world claim verification dataset. Schlichtkrull, Guo, and Vlachos describe it as 4,568 claims from 50 fact-checking organizations. Annotators write questions and answers that serve as evidence. The paper is <a href="https://arxiv.org/abs/2305.13117">arXiv:2305.13117</a>. The official release is <a href="https://github.com/MichSchli/AVeriTeC">MichSchli/AVeriTeC</a>.</p>
+<p>The official test labels are not public. This project trains on the train split and evaluates on the dev split, saved here as the test set. The license is CC BY-NC 4.0 (non-commercial).</p>
+
+<h2>Preprocessing</h2>
+<ol>
+  <li>Normalize unicode to NFKC, collapse whitespace, and strip each text field.</li>
+  <li>Map labels onto the four verdicts, including case variants, "Not Enough Information", and "Conflicting Evidence".</li>
+  <li>Drop rows with an empty claim or a blank label.</li>
+  <li>Deduplicate by lowercased claim inside each split, keeping the first copy.</li>
+  <li>Remove any dev claim that also appears in train.</li>
+  <li>Build evidence from each question and its first three answers, as "Q: … A: …". Boolean answers keep a non-empty explanation. Claims with no usable pair get a no-evidence placeholder.</li>
+  <li>Leave the justification field out of every column. It restates the verdict.</li>
+</ol>
+
+<h2>Processed counts</h2>
+{% if report.pending %}
+<div class="pending" role="status">{{ report.message }}</div>
+{% else %}
+<p>Source used for the raw files: {{ report.source }}.</p>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Split</th>
+        <th>Loaded</th>
+        <th>Dropped invalid</th>
+        <th>Dropped duplicates</th>
+        <th>Removed overlap</th>
+        <th>Final</th>
+        <th>Missing evidence</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in report.splits %}
+      <tr>
+        <td>{{ row.split }}</td>
+        <td>{{ row.loaded }}</td>
+        <td>{{ row.dropped_invalid }}</td>
+        <td>{{ row.dropped_duplicates }}</td>
+        <td>{{ row.removed_train_overlap }}</td>
+        <td>{{ row.final }}</td>
+        <td>{{ row.missing_evidence_share }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<h3>Class counts</h3>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Split</th><th>Label</th><th>Count</th></tr>
+    </thead>
+    <tbody>
+      {% for row in report.class_rows %}
+      <tr><td>{{ row.split }}</td><td>{{ row.label }}</td><td>{{ row.count }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<h2>Summary by class</h2>
+{% if summary.pending %}
+<div class="pending" role="status">{{ summary.message }}</div>
+{% else %}
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        {% for column in summary.columns %}<th>{{ column }}</th>{% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in summary.rows %}
+      <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<h2>Exploratory figures</h2>
+{% for fig in figures %}
+{% if fig.pending %}
+<div class="pending" role="status">{{ fig.message }}</div>
+{% else %}
+<figure>
+  <img src="{{ fig.src }}" alt="{{ fig.alt }}">
+  <figcaption>{{ fig.caption }}</figcaption>
+</figure>
+{% endif %}
+{% endfor %}
+
+<div class="callout">
+  <strong>Annotation shortcut and leakage</strong>
+  Some evidence texts contain stock phrases such as "no answer could be found". The phrase figure is there so that shortcut is visible, especially for Not Enough Evidence. The justification string is never used as a feature, and claims that occur in both splits are removed from the evaluation split.
+</div>
+{% endblock %}

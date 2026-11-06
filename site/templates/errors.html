@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Error analysis</h1>
+<p>Stage 2 samples misclassified claims, tags a likely reason, and lists cases where the two models disagree. Manual reasons are left blank for the team to fill in.</p>
+
+<h2>Reason counts</h2>
+{% if reason_fig.pending %}
+<div class="pending" role="status">{{ reason_fig.message }}</div>
+{% else %}
+<figure>
+  <img src="{{ reason_fig.src }}" alt="{{ reason_fig.alt }}">
+  <figcaption>{{ reason_fig.caption }}</figcaption>
+</figure>
+{% endif %}
+
+{% for block in error_tables %}
+<h2>{{ block.title }}</h2>
+{% if block.pending %}
+<div class="pending" role="status">{{ block.message }}</div>
+{% else %}
+{% for row in block.rows %}
+<article class="example">
+  <h3>Claim {{ row.claim_id }}</h3>
+  <p>{{ row.claim }}</p>
+  <p>True: {{ row.true_label }}. TF-IDF: {{ row.pred_tfidf }}. SBERT: {{ row.pred_sbert }}.</p>
+  <p>Auto reason: {{ row.auto_reason }}</p>
+  <details>
+    <summary>Evidence</summary>
+    <p>{{ row.evidence }}</p>
+  </details>
+</article>
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+<h2>Summary</h2>
+{% if summary.pending %}
+<div class="pending" role="status">{{ summary.message }}</div>
+{% else %}
+<pre>{{ summary.text }}</pre>
+{% endif %}
+{% endblock %}

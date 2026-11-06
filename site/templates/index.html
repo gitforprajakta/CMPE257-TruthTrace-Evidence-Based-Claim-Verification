@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Can a semantic model beat TF-IDF on the same claims?</h1>
+<p class="lede">TruthTrace compares two claim-verification models on AVeriTeC: one traditional, one semantic. Both see the same claims, the same evidence, and the same four verdicts.</p>
+<p class="question">{{ research_question }}</p>
+
+<h2>Headline results</h2>
+<p>Accuracy and macro-F1 on the evaluation split. {{ headline.note }}</p>
+<div class="cards">
+  {% for row in headline.rows %}
+  <article class="card">
+    <h3>{{ row.name }}</h3>
+    {% if row.pending %}
+    <div class="pending" role="status">{{ row.message }}</div>
+    {% else %}
+    <p class="metric">Accuracy {{ row.accuracy }}</p>
+    <p class="metric">Macro-F1 {{ row.macro_f1 }}</p>
+    {% endif %}
+  </article>
+  {% endfor %}
+</div>
+
+<h2>What the comparison says</h2>
+{% if verdict.pending %}
+<div class="pending" role="status">{{ verdict.message }}</div>
+{% else %}
+<p class="prewrap">{{ verdict.text }}</p>
+{% endif %}
+
+<p class="disclaimer"><strong>Decision support only.</strong> A verdict is a model's reading of this benchmark. It is not a determination that a claim is true or false in the world.</p>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · TruthTrace</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="brand">
+      <a href="index.html">TruthTrace</a>
+      <p>Evidence-based claim verification</p>
+    </div>
+    <nav aria-label="Primary">
+      {% for item in nav %}
+      <a href="{{ item.href }}" {% if item.href == active %}aria-current="page"{% endif %}>{{ item.label }}</a>
+      {% endfor %}
+    </nav>
+  </header>
+  <main id="content">
+    {% block content %}{% endblock %}
+  </main>
+  <footer>
+    <p>Decision-support prototype for CMPE 257. It is not a source of truth.</p>
+  </footer>
+  <script src="assets/tabs.js"></script>
+</body>
+</html>
