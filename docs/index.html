@@ -38,7 +38,7 @@
 <p class="question">Can a semantic model (Sentence-BERT + logistic regression) beat a traditional model (TF-IDF + logistic regression) for claim verification, given identical data, splits, tuning budget, and metrics?</p>
 
 <h2>Headline results</h2>
-<p>Accuracy and macro-F1 on the evaluation split. Source: results/metrics.</p>
+<p>Accuracy and macro-F1 on the evaluation split. Source: results/tables/main_comparison.csv.</p>
 <div class="cards">
   
   <article class="card">
@@ -60,7 +60,8 @@
   <article class="card">
     <h3>SBERT + LR</h3>
     
-    <div class="pending" role="status">Pending: waiting for results/metrics/sbert_lr_full.json</div>
+    <p class="metric">Accuracy 0.495</p>
+    <p class="metric">Macro-F1 0.360</p>
     
   </article>
   
@@ -68,7 +69,7 @@
 
 <h2>What the comparison says</h2>
 
-<div class="pending" role="status">Pending: waiting for results/tables/verdict.md</div>
+<p class="prewrap">The majority baseline reaches a macro-F1 of 0.1926. TF-IDF + logistic regression reaches a macro-F1 of 0.4693. Sentence-BERT + logistic regression reaches a macro-F1 of 0.3596. The macro-F1 difference (SBERT minus TF-IDF) is -0.1095 with a 95% bootstrap interval of [-0.1796, -0.0392]. McNemar&#39;s test on paired correctness gives p = 1.38e-07. SBERT is worse than TF-IDF at alpha = 0.05.</p>
 
 
 <p class="disclaimer"><strong>Decision support only.</strong> A verdict is a model's reading of this benchmark. It is not a determination that a claim is true or false in the world.</p>

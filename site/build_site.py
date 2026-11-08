@@ -83,7 +83,12 @@ def ready(**kwargs) -> dict:
 
 
 def fmt_float(value, digits: int = 4) -> str:
-    return f"{float(value):.{digits}f}"
+    """Fixed decimals. A non-zero value that would print as zero uses scientific notation."""
+    number = float(value)
+    text = f"{number:.{digits}f}"
+    if text == f"{0:.{digits}f}" and number != 0.0:
+        return f"{number:.2e}"
+    return text
 
 
 def figure(name: str, caption: str) -> dict:
