@@ -4,14 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home · TruthTrace</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css?v=4">
+  <script>
+    try {
+      var savedTheme = localStorage.getItem("truthtrace-theme");
+      if (savedTheme === "light" || savedTheme === "dark") {
+        document.documentElement.setAttribute("data-theme", savedTheme);
+      }
+    } catch (error) {}
+  </script>
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="brand">
       <a href="index.html">TruthTrace</a>
-      <p>Evidence-based claim verification</p>
     </div>
     <nav aria-label="Primary">
       
@@ -29,55 +36,55 @@
       
       <a href="team.html" >Team</a>
       
+      <button type="button" id="theme-toggle" class="theme-toggle">Dark mode</button>
     </nav>
   </header>
   <main id="content">
     
-<h1>Can a semantic model beat TF-IDF on the same claims?</h1>
-<p class="lede">TruthTrace compares two claim-verification models on AVeriTeC: one traditional, one semantic. Both see the same claims, the same evidence, and the same four verdicts.</p>
-<p class="question">Can a semantic model (Sentence-BERT + logistic regression) beat a traditional model (TF-IDF + logistic regression) for claim verification, given identical data, splits, tuning budget, and metrics?</p>
-
-<h2>Headline results</h2>
-<p>Accuracy and macro-F1 on the evaluation split. Source: results/tables/main_comparison.csv.</p>
+<h1>Can a semantic model beat TF-IDF?</h1>
 <div class="cards">
   
-  <article class="card">
+  <article class="card tone-majority">
     <h3>Majority</h3>
     
-    <p class="metric">Accuracy 0.626</p>
-    <p class="metric">Macro-F1 0.193</p>
+    <p class="metric-label">Accuracy</p>
+    <p class="metric">0.626</p>
+    <p class="metric-label">Macro-F1</p>
+    <p class="metric">0.193</p>
     
   </article>
   
-  <article class="card">
+  <article class="card tone-tfidf">
     <h3>TF-IDF + LR</h3>
     
-    <p class="metric">Accuracy 0.647</p>
-    <p class="metric">Macro-F1 0.469</p>
+    <p class="metric-label">Accuracy</p>
+    <p class="metric">0.647</p>
+    <p class="metric-label">Macro-F1</p>
+    <p class="metric">0.469</p>
     
   </article>
   
-  <article class="card">
+  <article class="card tone-sbert">
     <h3>SBERT + LR</h3>
     
-    <p class="metric">Accuracy 0.495</p>
-    <p class="metric">Macro-F1 0.360</p>
+    <p class="metric-label">Accuracy</p>
+    <p class="metric">0.495</p>
+    <p class="metric-label">Macro-F1</p>
+    <p class="metric">0.360</p>
     
   </article>
   
 </div>
 
-<h2>What the comparison says</h2>
+<p class="verdict-line">SBERT is worse than TF-IDF at alpha = 0.05.</p>
 
-<p class="prewrap">The majority baseline reaches a macro-F1 of 0.1926. TF-IDF + logistic regression reaches a macro-F1 of 0.4693. Sentence-BERT + logistic regression reaches a macro-F1 of 0.3596. The macro-F1 difference (SBERT minus TF-IDF) is -0.1095 with a 95% bootstrap interval of [-0.1796, -0.0392]. McNemar&#39;s test on paired correctness gives p = 1.38e-07. SBERT is worse than TF-IDF at alpha = 0.05.</p>
-
-
-<p class="disclaimer"><strong>Decision support only.</strong> A verdict is a model's reading of this benchmark. It is not a determination that a claim is true or false in the world.</p>
+<p class="disclaimer">Decision support only. Not a truth oracle.</p>
 
   </main>
   <footer>
-    <p>Decision-support prototype for CMPE 257. It is not a source of truth.</p>
+    <p>CMPE 257 · decision support, not a truth oracle.</p>
   </footer>
   <script src="assets/tabs.js"></script>
+  <script src="assets/interact.js?v=3"></script>
 </body>
 </html>

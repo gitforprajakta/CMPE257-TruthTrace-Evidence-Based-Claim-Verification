@@ -4,14 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Results · TruthTrace</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css?v=4">
+  <script>
+    try {
+      var savedTheme = localStorage.getItem("truthtrace-theme");
+      if (savedTheme === "light" || savedTheme === "dark") {
+        document.documentElement.setAttribute("data-theme", savedTheme);
+      }
+    } catch (error) {}
+  </script>
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="brand">
       <a href="index.html">TruthTrace</a>
-      <p>Evidence-based claim verification</p>
     </div>
     <nav aria-label="Primary">
       
@@ -29,12 +36,12 @@
       
       <a href="team.html" >Team</a>
       
+      <button type="button" id="theme-toggle" class="theme-toggle">Dark mode</button>
     </nav>
   </header>
   <main id="content">
     
 <h1>Results</h1>
-<p>Every number on this page is read from <code>results/metrics</code> or <code>results/tables</code>. Missing Stage 2 files stay marked as pending.</p>
 
 <div data-tabs>
   <div class="tabs" role="tablist">
@@ -392,8 +399,9 @@
 
   </main>
   <footer>
-    <p>Decision-support prototype for CMPE 257. It is not a source of truth.</p>
+    <p>CMPE 257 · decision support, not a truth oracle.</p>
   </footer>
   <script src="assets/tabs.js"></script>
+  <script src="assets/interact.js?v=3"></script>
 </body>
 </html>

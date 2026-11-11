@@ -4,14 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Demo · TruthTrace</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css?v=4">
+  <script>
+    try {
+      var savedTheme = localStorage.getItem("truthtrace-theme");
+      if (savedTheme === "light" || savedTheme === "dark") {
+        document.documentElement.setAttribute("data-theme", savedTheme);
+      }
+    } catch (error) {}
+  </script>
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="brand">
       <a href="index.html">TruthTrace</a>
-      <p>Evidence-based claim verification</p>
     </div>
     <nav aria-label="Primary">
       
@@ -29,514 +36,988 @@
       
       <a href="team.html" >Team</a>
       
+      <button type="button" id="theme-toggle" class="theme-toggle">Dark mode</button>
     </nav>
   </header>
   <main id="content">
     
-<h1>Demo</h1>
-<p>These examples are precomputed on the evaluation split. The live app, added in Stage 2, loads the saved models and scores a claim you type.</p>
-<p>Launch it from the repository root with <code>make demo</code> after Stage 2 is in place (<code>streamlit run app/streamlit_app.py</code>).</p>
-<p class="disclaimer"><strong>Decision support only.</strong> This prototype was trained on AVeriTeC. It is not a source of truth.</p>
+<h1>Try a claim</h1>
 
-<h2>Precomputed claims</h2>
-
-
-<article class="example">
-  <h3>Claim 54</h3>
-  <p>India’s imports from China increased by 27% in April-August 2020</p>
-  <p><strong>True label:</strong> Refuted</p>
-  <div class="pred-grid">
-    
-    <section class="card">
-      <h3>TF-IDF + LR</h3>
-      
-      <p>Predicted Refuted (correct)</p>
-      <ul>
-        
-        <li>Supported 0.174</li>
-        
-        <li>Refuted 0.609</li>
-        
-        <li>NEE 0.148</li>
-        
-        <li>Conflicting 0.068</li>
-        
-      </ul>
-      
-    </section>
-    
-    <section class="card">
-      <h3>SBERT + LR</h3>
-      
-      <p>Predicted Not Enough Evidence (incorrect)</p>
-      <ul>
-        
-        <li>Supported 0.332</li>
-        
-        <li>Refuted 0.103</li>
-        
-        <li>NEE 0.562</li>
-        
-        <li>Conflicting 0.003</li>
-        
-      </ul>
-      
-    </section>
-    
+<div id="claim-lab" class="claim-lab">
+  <div class="lab-controls">
+    <div class="lab-toolbar">
+      <p class="lab-progress" aria-live="polite"></p>
+      <p class="lab-score" aria-live="polite"></p>
+      <div class="lab-filters" role="group" aria-label="Which claims to show">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="disagree" aria-pressed="false">Disagree</button>
+      </div>
+    </div>
   </div>
-  <details>
-    <summary>Evidence</summary>
-    <p>Q: Did India&#39;s imports from China increase between April-August 2020? A: No Explanation: Imports from China decline by 27.63% during April-August 2020 [SEP] Q: Did India&#39;s imports from China increase between April-August 2020? A: No Explanation: India&#39;s imports from China declined by 27.63 per cent during April-August this fiscal to $21.58 billion over the same period previous year, Parliament was informed on Monday. [SEP] Q: Was there an increase in India&#39;s imports from China A: There was no increase, rather there was a decrease in the imports from China of 27.63% between April to August</p>
-  </details>
-</article>
-
-<article class="example">
-  <h3>Claim 124</h3>
-  <p>PTFE Sprayed On Blue Masks Causes Symptoms Similar To COVID-19</p>
-  <p><strong>True label:</strong> Refuted</p>
-  <div class="pred-grid">
-    
-    <section class="card">
-      <h3>TF-IDF + LR</h3>
+  <p class="lab-empty" hidden>No claims in this filter.</p>
+  
+  <article class="example" data-true="Refuted" data-disagree="yes">
+    <p class="claim-kicker">Claim 54</p>
+    <p class="claim-text">India’s imports from China increased by 27% in April-August 2020</p>
+    <div class="guess-row" role="group" aria-label="Your verdict for claim 54">
       
-      <p>Predicted Refuted (correct)</p>
-      <ul>
-        
-        <li>Supported 0.188</li>
-        
-        <li>Refuted 0.601</li>
-        
-        <li>NEE 0.120</li>
-        
-        <li>Conflicting 0.090</li>
-        
-      </ul>
+      <button type="button" class="v-supported" data-guess="Supported">Supported</button>
       
-    </section>
-    
-    <section class="card">
-      <h3>SBERT + LR</h3>
+      <button type="button" class="v-refuted" data-guess="Refuted">Refuted</button>
       
-      <p>Predicted Conflicting Evidence/Cherrypicking (incorrect)</p>
-      <ul>
-        
-        <li>Supported 0.151</li>
-        
-        <li>Refuted 0.340</li>
-        
-        <li>NEE 0.019</li>
-        
-        <li>Conflicting 0.489</li>
-        
-      </ul>
+      <button type="button" class="v-nee" data-guess="Not Enough Evidence">NEE</button>
       
-    </section>
-    
+      <button type="button" class="v-conflicting" data-guess="Conflicting Evidence/Cherrypicking">Conflicting</button>
+      
+    </div>
+    <p class="guess-feedback" hidden></p>
+    <div class="reveal">
+      <p><span class="chip v-refuted">Dev label · Refuted</span></p>
+      <div class="pred-grid">
+        
+        <section class="card tone-tfidf">
+          <h3>TF-IDF + LR</h3>
+          
+          <p class="outcome outcome-correct"><span class="chip v-refuted">Refuted</span> correct</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.174">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.174</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.609">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.609</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.148">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.148</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.068">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.068</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+        <section class="card tone-sbert">
+          <h3>SBERT + LR</h3>
+          
+          <p class="outcome outcome-incorrect"><span class="chip v-nee">NEE</span> incorrect</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.332">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.332</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.103">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.103</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.562">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.562</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.003">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.003</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+      </div>
+      <details>
+        <summary>Evidence</summary>
+        <p>Q: Did India&#39;s imports from China increase between April-August 2020? A: No Explanation: Imports from China decline by 27.63% during April-August 2020 [SEP] Q: Did India&#39;s imports from China increase between April-August 2020? A: No Explanation: India&#39;s imports from China declined by 27.63 per cent during April-August this fiscal to $21.58 billion over the same period previous year, Parliament was informed on Monday. [SEP] Q: Was there an increase in India&#39;s imports from China A: There was no increase, rather there was a decrease in the imports from China of 27.63% between April to August</p>
+      </details>
+    </div>
+  </article>
+  
+  <article class="example" data-true="Refuted" data-disagree="yes">
+    <p class="claim-kicker">Claim 124</p>
+    <p class="claim-text">PTFE Sprayed On Blue Masks Causes Symptoms Similar To COVID-19</p>
+    <div class="guess-row" role="group" aria-label="Your verdict for claim 124">
+      
+      <button type="button" class="v-supported" data-guess="Supported">Supported</button>
+      
+      <button type="button" class="v-refuted" data-guess="Refuted">Refuted</button>
+      
+      <button type="button" class="v-nee" data-guess="Not Enough Evidence">NEE</button>
+      
+      <button type="button" class="v-conflicting" data-guess="Conflicting Evidence/Cherrypicking">Conflicting</button>
+      
+    </div>
+    <p class="guess-feedback" hidden></p>
+    <div class="reveal">
+      <p><span class="chip v-refuted">Dev label · Refuted</span></p>
+      <div class="pred-grid">
+        
+        <section class="card tone-tfidf">
+          <h3>TF-IDF + LR</h3>
+          
+          <p class="outcome outcome-correct"><span class="chip v-refuted">Refuted</span> correct</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.188">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.188</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.601">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.601</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.120">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.120</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.090">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.090</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+        <section class="card tone-sbert">
+          <h3>SBERT + LR</h3>
+          
+          <p class="outcome outcome-incorrect"><span class="chip v-conflicting">Conflicting</span> incorrect</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.151">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.151</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.340">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.340</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.019">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.019</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.489">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.489</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+      </div>
+      <details>
+        <summary>Evidence</summary>
+        <p>Q: Are the common types of face masks people wear to protect from Covid 19 sprayed with PTFE? A: No Explanation: The common ear to ear face masks are made using Polypropylene not Polytetrafluoroethylene (PTFE)</p>
+      </details>
+    </div>
+  </article>
+  
+  <article class="example" data-true="Refuted" data-disagree="no">
+    <p class="claim-kicker">Claim 151</p>
+    <p class="claim-text">The Democrats want to shut down U.S. churches permanently.</p>
+    <div class="guess-row" role="group" aria-label="Your verdict for claim 151">
+      
+      <button type="button" class="v-supported" data-guess="Supported">Supported</button>
+      
+      <button type="button" class="v-refuted" data-guess="Refuted">Refuted</button>
+      
+      <button type="button" class="v-nee" data-guess="Not Enough Evidence">NEE</button>
+      
+      <button type="button" class="v-conflicting" data-guess="Conflicting Evidence/Cherrypicking">Conflicting</button>
+      
+    </div>
+    <p class="guess-feedback" hidden></p>
+    <div class="reveal">
+      <p><span class="chip v-refuted">Dev label · Refuted</span></p>
+      <div class="pred-grid">
+        
+        <section class="card tone-tfidf">
+          <h3>TF-IDF + LR</h3>
+          
+          <p class="outcome outcome-correct"><span class="chip v-refuted">Refuted</span> correct</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.311">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.311</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.477">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.477</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.085">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.085</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.127">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.127</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+        <section class="card tone-sbert">
+          <h3>SBERT + LR</h3>
+          
+          <p class="outcome outcome-correct"><span class="chip v-refuted">Refuted</span> correct</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.365">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.365</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.605">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.605</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.003">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.003</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.027">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.027</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+      </div>
+      <details>
+        <summary>Evidence</summary>
+        <p>Q: Have churches in the U.S. been affected by coronavirus-related restrictions? A: A survey by the Pew Research Center in April found more than 90% of regular churchgoers in the United States saying their churches had closed their doors to combat the spread of the coronavirus, with the vast majority saying that worship services had moved entirely online. Social hours and church suppers are a thing of the past, at least for now. [SEP] Q: Are churches exempted from coronavirus-related restrictions in some states? A: Ohio’s Republican-controlled legislature has pushed through a law that bans loca</p>
+      </details>
+    </div>
+  </article>
+  
+  <article class="example" data-true="Supported" data-disagree="no">
+    <p class="claim-kicker">Claim 158</p>
+    <p class="claim-text">US President Donald Trump following his positive diagnosis of COVID-19, was given treatment developed from the use of fetal tissue, made by the company Regeneron.</p>
+    <div class="guess-row" role="group" aria-label="Your verdict for claim 158">
+      
+      <button type="button" class="v-supported" data-guess="Supported">Supported</button>
+      
+      <button type="button" class="v-refuted" data-guess="Refuted">Refuted</button>
+      
+      <button type="button" class="v-nee" data-guess="Not Enough Evidence">NEE</button>
+      
+      <button type="button" class="v-conflicting" data-guess="Conflicting Evidence/Cherrypicking">Conflicting</button>
+      
+    </div>
+    <p class="guess-feedback" hidden></p>
+    <div class="reveal">
+      <p><span class="chip v-supported">Dev label · Supported</span></p>
+      <div class="pred-grid">
+        
+        <section class="card tone-tfidf">
+          <h3>TF-IDF + LR</h3>
+          
+          <p class="outcome outcome-incorrect"><span class="chip v-refuted">Refuted</span> incorrect</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.185">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.185</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.544">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.544</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.089">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.089</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.182">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.182</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+        <section class="card tone-sbert">
+          <h3>SBERT + LR</h3>
+          
+          <p class="outcome outcome-incorrect"><span class="chip v-refuted">Refuted</span> incorrect</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.014">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.014</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.877">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.877</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.003">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.003</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.106">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.106</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+      </div>
+      <details>
+        <summary>Evidence</summary>
+        <p>Q: Was Trump given a Covid-19 treatment made by Regeneron? A: Yes Explanation: The President&#39;s physician, Sean Conley, said in a statement that Mr Trump &#34;remains fatigued but in good spirits&#34; after receiving an intravenous dose of Regeneron Pharmaceuticals&#39; dual antibody. [SEP] Q: What is Regenron&#39;s Covid-19 dual antibody? A: REGN-COV2 [SEP] Q: How was REGN-COV2 developed? A: To develop REGN-COV2, Regeneron scientists evaluated thousands of fully-human antibodies produced by the company&#39;s VelocImmune® mice, which have been genetically modified to have a human immune system, as well as antibodi</p>
+      </details>
+    </div>
+  </article>
+  
+  <article class="example" data-true="Supported" data-disagree="no">
+    <p class="claim-kicker">Claim 224</p>
+    <p class="claim-text">In England You can get a £3,000 fine for not wearing a cloth over your face at the time of this claim.</p>
+    <div class="guess-row" role="group" aria-label="Your verdict for claim 224">
+      
+      <button type="button" class="v-supported" data-guess="Supported">Supported</button>
+      
+      <button type="button" class="v-refuted" data-guess="Refuted">Refuted</button>
+      
+      <button type="button" class="v-nee" data-guess="Not Enough Evidence">NEE</button>
+      
+      <button type="button" class="v-conflicting" data-guess="Conflicting Evidence/Cherrypicking">Conflicting</button>
+      
+    </div>
+    <p class="guess-feedback" hidden></p>
+    <div class="reveal">
+      <p><span class="chip v-supported">Dev label · Supported</span></p>
+      <div class="pred-grid">
+        
+        <section class="card tone-tfidf">
+          <h3>TF-IDF + LR</h3>
+          
+          <p class="outcome outcome-incorrect"><span class="chip v-refuted">Refuted</span> incorrect</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.269">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.269</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.469">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.469</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.118">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.118</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.143">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.143</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+        <section class="card tone-sbert">
+          <h3>SBERT + LR</h3>
+          
+          <p class="outcome outcome-incorrect"><span class="chip v-refuted">Refuted</span> incorrect</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.338">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.338</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.653">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.653</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.008">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.008</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.001">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.001</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+      </div>
+      <details>
+        <summary>Evidence</summary>
+        <p>Q: How much was the fine for not wearing a mask during covid restrictions in England A: maximum of £3,200 for those who repeatedly flout face covering rules</p>
+      </details>
+    </div>
+  </article>
+  
+  <article class="example" data-true="Refuted" data-disagree="no">
+    <p class="claim-kicker">Claim 245</p>
+    <p class="claim-text">A child died in Germany from wearing a mask.</p>
+    <div class="guess-row" role="group" aria-label="Your verdict for claim 245">
+      
+      <button type="button" class="v-supported" data-guess="Supported">Supported</button>
+      
+      <button type="button" class="v-refuted" data-guess="Refuted">Refuted</button>
+      
+      <button type="button" class="v-nee" data-guess="Not Enough Evidence">NEE</button>
+      
+      <button type="button" class="v-conflicting" data-guess="Conflicting Evidence/Cherrypicking">Conflicting</button>
+      
+    </div>
+    <p class="guess-feedback" hidden></p>
+    <div class="reveal">
+      <p><span class="chip v-refuted">Dev label · Refuted</span></p>
+      <div class="pred-grid">
+        
+        <section class="card tone-tfidf">
+          <h3>TF-IDF + LR</h3>
+          
+          <p class="outcome outcome-correct"><span class="chip v-refuted">Refuted</span> correct</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.194">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.194</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.643">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.643</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.113">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.113</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.050">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.050</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+        <section class="card tone-sbert">
+          <h3>SBERT + LR</h3>
+          
+          <p class="outcome outcome-correct"><span class="chip v-refuted">Refuted</span> correct</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.004">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.004</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.976">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.976</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.019">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.019</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.001">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.001</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+      </div>
+      <details>
+        <summary>Evidence</summary>
+        <p>Q: Who made the claim A: Claudia Strauber [SEP] Q: What did the German government say concerning the death of a child due to prolonged use of masks A: On October 1, 2020, the Lower Franconia Police Department posted a warning on its Twitter account that mask critics are spreading a hoax about a 6-year-old dying from wearing the mask schools have required since re-opening on August 12</p>
+      </details>
+    </div>
+  </article>
+  
+  <article class="example" data-true="Refuted" data-disagree="no">
+    <p class="claim-kicker">Claim 315</p>
+    <p class="claim-text">COVID-19 was developed as a bioweapon from a research facility in China.</p>
+    <div class="guess-row" role="group" aria-label="Your verdict for claim 315">
+      
+      <button type="button" class="v-supported" data-guess="Supported">Supported</button>
+      
+      <button type="button" class="v-refuted" data-guess="Refuted">Refuted</button>
+      
+      <button type="button" class="v-nee" data-guess="Not Enough Evidence">NEE</button>
+      
+      <button type="button" class="v-conflicting" data-guess="Conflicting Evidence/Cherrypicking">Conflicting</button>
+      
+    </div>
+    <p class="guess-feedback" hidden></p>
+    <div class="reveal">
+      <p><span class="chip v-refuted">Dev label · Refuted</span></p>
+      <div class="pred-grid">
+        
+        <section class="card tone-tfidf">
+          <h3>TF-IDF + LR</h3>
+          
+          <p class="outcome outcome-correct"><span class="chip v-refuted">Refuted</span> correct</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.175">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.175</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.632">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.632</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.085">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.085</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.108">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.108</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+        <section class="card tone-sbert">
+          <h3>SBERT + LR</h3>
+          
+          <p class="outcome outcome-correct"><span class="chip v-refuted">Refuted</span> correct</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.019">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.019</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.953">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.953</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.015">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.015</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.012">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.012</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+      </div>
+      <details>
+        <summary>Evidence</summary>
+        <p>Q: Where was Covid 19 first reported in humans? A: 1st known case of coronavirus traced back to November in China [SEP] Q: Do health professionals have an idea of what started the Covid 19 pandemic? A: Scientists now suspect this coronavirus, SARS-CoV-2, originated in a bat and somehow hopped to another animal, possibly the pangolin, which then passed it on to humans. [SEP] Q: Could Covid 19 have came from a lab? A: Some experts wonder whether a virus under study at a lab could have been accidentally released, something that’s happened in the past. [SEP] Q: What is the date of the claim? A: Se</p>
+      </details>
+    </div>
+  </article>
+  
+  <article class="example" data-true="Conflicting Evidence/Cherrypicking" data-disagree="no">
+    <p class="claim-kicker">Claim 416</p>
+    <p class="claim-text">U.S. citizens should show up at polling places on Election Day and cast an in-person ballot if poll workers can’t confirm that their mail-in ballot was received.</p>
+    <div class="guess-row" role="group" aria-label="Your verdict for claim 416">
+      
+      <button type="button" class="v-supported" data-guess="Supported">Supported</button>
+      
+      <button type="button" class="v-refuted" data-guess="Refuted">Refuted</button>
+      
+      <button type="button" class="v-nee" data-guess="Not Enough Evidence">NEE</button>
+      
+      <button type="button" class="v-conflicting" data-guess="Conflicting Evidence/Cherrypicking">Conflicting</button>
+      
+    </div>
+    <p class="guess-feedback" hidden></p>
+    <div class="reveal">
+      <p><span class="chip v-conflicting">Dev label · Conflicting</span></p>
+      <div class="pred-grid">
+        
+        <section class="card tone-tfidf">
+          <h3>TF-IDF + LR</h3>
+          
+          <p class="outcome outcome-incorrect"><span class="chip v-refuted">Refuted</span> incorrect</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.308">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.308</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.324">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.324</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.076">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.076</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.292">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.292</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+        <section class="card tone-sbert">
+          <h3>SBERT + LR</h3>
+          
+          <p class="outcome outcome-incorrect"><span class="chip v-refuted">Refuted</span> incorrect</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.431">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.431</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.453">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.453</span>
+            </li>
+            
+            <li class="p-nee" data-p="4.96e-04">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">4.96e-04</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.115">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.115</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+      </div>
+      <details>
+        <summary>Evidence</summary>
+        <p>Q: Are absentee/mail-in ballots in US elections tracked? A: Yes Explanation: But in different ways. 19 stets have an online tracking system. [SEP] Q: Is it legal to place an absentee/mail-in vote and then vote at a polling station in the US? A: No Explanation: Whoever votes more than once in an election referred to in paragraph (2) shall be fined not more than $10,000 or imprisoned not more than five years, or both. (2) The prohibition of this subsection applies with respect to any general, special, or primary election held solely or in part for the purpose of selecting or electing any candida</p>
+      </details>
+    </div>
+  </article>
+  
+  <article class="example" data-true="Refuted" data-disagree="no">
+    <p class="claim-kicker">Claim 448</p>
+    <p class="claim-text">Since 2002, South Africa’s police force has grown by 50%.</p>
+    <div class="guess-row" role="group" aria-label="Your verdict for claim 448">
+      
+      <button type="button" class="v-supported" data-guess="Supported">Supported</button>
+      
+      <button type="button" class="v-refuted" data-guess="Refuted">Refuted</button>
+      
+      <button type="button" class="v-nee" data-guess="Not Enough Evidence">NEE</button>
+      
+      <button type="button" class="v-conflicting" data-guess="Conflicting Evidence/Cherrypicking">Conflicting</button>
+      
+    </div>
+    <p class="guess-feedback" hidden></p>
+    <div class="reveal">
+      <p><span class="chip v-refuted">Dev label · Refuted</span></p>
+      <div class="pred-grid">
+        
+        <section class="card tone-tfidf">
+          <h3>TF-IDF + LR</h3>
+          
+          <p class="outcome outcome-incorrect"><span class="chip v-supported">Supported</span> incorrect</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.745">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.745</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.123">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.123</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.091">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.091</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.042">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.042</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+        <section class="card tone-sbert">
+          <h3>SBERT + LR</h3>
+          
+          <p class="outcome outcome-incorrect"><span class="chip v-supported">Supported</span> incorrect</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.902">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.902</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.005">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.005</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.092">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.092</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="2.88e-04">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">2.88e-04</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+      </div>
+      <details>
+        <summary>Evidence</summary>
+        <p>Q: How many people were employed in the SA police force in 2002/03 A: 132,310 [SEP] Q: How many people were employed in SA police force in 2018/19 A: 192,277 [SEP] Q: What is the percentage growth in the SA police force between 2002 to 2019 A: 45.3%</p>
+      </details>
+    </div>
+  </article>
+  
+  <article class="example" data-true="Supported" data-disagree="yes">
+    <p class="claim-kicker">Claim 456</p>
+    <p class="claim-text">A crowdfunding campaign on the Christian site GiveSendGo solicited donations to help Kyle Rittenhouse, a 17-year-old accused of killing two people at a protest in Kenosha, Wisconsin.</p>
+    <div class="guess-row" role="group" aria-label="Your verdict for claim 456">
+      
+      <button type="button" class="v-supported" data-guess="Supported">Supported</button>
+      
+      <button type="button" class="v-refuted" data-guess="Refuted">Refuted</button>
+      
+      <button type="button" class="v-nee" data-guess="Not Enough Evidence">NEE</button>
+      
+      <button type="button" class="v-conflicting" data-guess="Conflicting Evidence/Cherrypicking">Conflicting</button>
+      
+    </div>
+    <p class="guess-feedback" hidden></p>
+    <div class="reveal">
+      <p><span class="chip v-supported">Dev label · Supported</span></p>
+      <div class="pred-grid">
+        
+        <section class="card tone-tfidf">
+          <h3>TF-IDF + LR</h3>
+          
+          <p class="outcome outcome-incorrect"><span class="chip v-refuted">Refuted</span> incorrect</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.297">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.297</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.488">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.488</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.105">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.105</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.110">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.110</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+        <section class="card tone-sbert">
+          <h3>SBERT + LR</h3>
+          
+          <p class="outcome outcome-correct"><span class="chip v-supported">Supported</span> correct</p>
+          <ul class="probs">
+            
+            <li class="p-supported" data-p="0.771">
+              <span class="p-label">Supported</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.771</span>
+            </li>
+            
+            <li class="p-refuted" data-p="0.075">
+              <span class="p-label">Refuted</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.075</span>
+            </li>
+            
+            <li class="p-nee" data-p="0.018">
+              <span class="p-label">NEE</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.018</span>
+            </li>
+            
+            <li class="p-conflicting" data-p="0.136">
+              <span class="p-label">Conflicting</span>
+              <span class="p-track"><span class="p-fill"></span></span>
+              <span class="p-num">0.136</span>
+            </li>
+            
+          </ul>
+          
+        </section>
+        
+      </div>
+      <details>
+        <summary>Evidence</summary>
+        <p>Q: What is GiveSendGo A: It is a Christian crowdfunding website [SEP] Q: Was there a crowdfunding account for Kyle Rittenhouse A: Wisconsin has a Christian crowdfunding site set up for his legal defense with over $80,000 raised! [SEP] Q: On what platform was the crowdfunding account set up for Kyle Rittenhouse A: A self-described Christian fundraising site, GiveSendGo, said on Friday it has raised more than $100,000 for Rittenhouse’s defense.</p>
+      </details>
+    </div>
+  </article>
+  
+  <div class="lab-controls lab-nav">
+    <button type="button" id="claim-prev">Previous</button>
+    <button type="button" id="claim-next">Next</button>
   </div>
-  <details>
-    <summary>Evidence</summary>
-    <p>Q: Are the common types of face masks people wear to protect from Covid 19 sprayed with PTFE? A: No Explanation: The common ear to ear face masks are made using Polypropylene not Polytetrafluoroethylene (PTFE)</p>
-  </details>
-</article>
-
-<article class="example">
-  <h3>Claim 151</h3>
-  <p>The Democrats want to shut down U.S. churches permanently.</p>
-  <p><strong>True label:</strong> Refuted</p>
-  <div class="pred-grid">
-    
-    <section class="card">
-      <h3>TF-IDF + LR</h3>
-      
-      <p>Predicted Refuted (correct)</p>
-      <ul>
-        
-        <li>Supported 0.311</li>
-        
-        <li>Refuted 0.477</li>
-        
-        <li>NEE 0.085</li>
-        
-        <li>Conflicting 0.127</li>
-        
-      </ul>
-      
-    </section>
-    
-    <section class="card">
-      <h3>SBERT + LR</h3>
-      
-      <p>Predicted Refuted (correct)</p>
-      <ul>
-        
-        <li>Supported 0.365</li>
-        
-        <li>Refuted 0.605</li>
-        
-        <li>NEE 0.003</li>
-        
-        <li>Conflicting 0.027</li>
-        
-      </ul>
-      
-    </section>
-    
-  </div>
-  <details>
-    <summary>Evidence</summary>
-    <p>Q: Have churches in the U.S. been affected by coronavirus-related restrictions? A: A survey by the Pew Research Center in April found more than 90% of regular churchgoers in the United States saying their churches had closed their doors to combat the spread of the coronavirus, with the vast majority saying that worship services had moved entirely online. Social hours and church suppers are a thing of the past, at least for now. [SEP] Q: Are churches exempted from coronavirus-related restrictions in some states? A: Ohio’s Republican-controlled legislature has pushed through a law that bans loca</p>
-  </details>
-</article>
-
-<article class="example">
-  <h3>Claim 158</h3>
-  <p>US President Donald Trump following his positive diagnosis of COVID-19, was given treatment developed from the use of fetal tissue, made by the company Regeneron.</p>
-  <p><strong>True label:</strong> Supported</p>
-  <div class="pred-grid">
-    
-    <section class="card">
-      <h3>TF-IDF + LR</h3>
-      
-      <p>Predicted Refuted (incorrect)</p>
-      <ul>
-        
-        <li>Supported 0.185</li>
-        
-        <li>Refuted 0.544</li>
-        
-        <li>NEE 0.089</li>
-        
-        <li>Conflicting 0.182</li>
-        
-      </ul>
-      
-    </section>
-    
-    <section class="card">
-      <h3>SBERT + LR</h3>
-      
-      <p>Predicted Refuted (incorrect)</p>
-      <ul>
-        
-        <li>Supported 0.014</li>
-        
-        <li>Refuted 0.877</li>
-        
-        <li>NEE 0.003</li>
-        
-        <li>Conflicting 0.106</li>
-        
-      </ul>
-      
-    </section>
-    
-  </div>
-  <details>
-    <summary>Evidence</summary>
-    <p>Q: Was Trump given a Covid-19 treatment made by Regeneron? A: Yes Explanation: The President&#39;s physician, Sean Conley, said in a statement that Mr Trump &#34;remains fatigued but in good spirits&#34; after receiving an intravenous dose of Regeneron Pharmaceuticals&#39; dual antibody. [SEP] Q: What is Regenron&#39;s Covid-19 dual antibody? A: REGN-COV2 [SEP] Q: How was REGN-COV2 developed? A: To develop REGN-COV2, Regeneron scientists evaluated thousands of fully-human antibodies produced by the company&#39;s VelocImmune® mice, which have been genetically modified to have a human immune system, as well as antibodi</p>
-  </details>
-</article>
-
-<article class="example">
-  <h3>Claim 224</h3>
-  <p>In England You can get a £3,000 fine for not wearing a cloth over your face at the time of this claim.</p>
-  <p><strong>True label:</strong> Supported</p>
-  <div class="pred-grid">
-    
-    <section class="card">
-      <h3>TF-IDF + LR</h3>
-      
-      <p>Predicted Refuted (incorrect)</p>
-      <ul>
-        
-        <li>Supported 0.269</li>
-        
-        <li>Refuted 0.469</li>
-        
-        <li>NEE 0.118</li>
-        
-        <li>Conflicting 0.143</li>
-        
-      </ul>
-      
-    </section>
-    
-    <section class="card">
-      <h3>SBERT + LR</h3>
-      
-      <p>Predicted Refuted (incorrect)</p>
-      <ul>
-        
-        <li>Supported 0.338</li>
-        
-        <li>Refuted 0.653</li>
-        
-        <li>NEE 0.008</li>
-        
-        <li>Conflicting 0.001</li>
-        
-      </ul>
-      
-    </section>
-    
-  </div>
-  <details>
-    <summary>Evidence</summary>
-    <p>Q: How much was the fine for not wearing a mask during covid restrictions in England A: maximum of £3,200 for those who repeatedly flout face covering rules</p>
-  </details>
-</article>
-
-<article class="example">
-  <h3>Claim 245</h3>
-  <p>A child died in Germany from wearing a mask.</p>
-  <p><strong>True label:</strong> Refuted</p>
-  <div class="pred-grid">
-    
-    <section class="card">
-      <h3>TF-IDF + LR</h3>
-      
-      <p>Predicted Refuted (correct)</p>
-      <ul>
-        
-        <li>Supported 0.194</li>
-        
-        <li>Refuted 0.643</li>
-        
-        <li>NEE 0.113</li>
-        
-        <li>Conflicting 0.050</li>
-        
-      </ul>
-      
-    </section>
-    
-    <section class="card">
-      <h3>SBERT + LR</h3>
-      
-      <p>Predicted Refuted (correct)</p>
-      <ul>
-        
-        <li>Supported 0.004</li>
-        
-        <li>Refuted 0.976</li>
-        
-        <li>NEE 0.019</li>
-        
-        <li>Conflicting 0.001</li>
-        
-      </ul>
-      
-    </section>
-    
-  </div>
-  <details>
-    <summary>Evidence</summary>
-    <p>Q: Who made the claim A: Claudia Strauber [SEP] Q: What did the German government say concerning the death of a child due to prolonged use of masks A: On October 1, 2020, the Lower Franconia Police Department posted a warning on its Twitter account that mask critics are spreading a hoax about a 6-year-old dying from wearing the mask schools have required since re-opening on August 12</p>
-  </details>
-</article>
-
-<article class="example">
-  <h3>Claim 315</h3>
-  <p>COVID-19 was developed as a bioweapon from a research facility in China.</p>
-  <p><strong>True label:</strong> Refuted</p>
-  <div class="pred-grid">
-    
-    <section class="card">
-      <h3>TF-IDF + LR</h3>
-      
-      <p>Predicted Refuted (correct)</p>
-      <ul>
-        
-        <li>Supported 0.175</li>
-        
-        <li>Refuted 0.632</li>
-        
-        <li>NEE 0.085</li>
-        
-        <li>Conflicting 0.108</li>
-        
-      </ul>
-      
-    </section>
-    
-    <section class="card">
-      <h3>SBERT + LR</h3>
-      
-      <p>Predicted Refuted (correct)</p>
-      <ul>
-        
-        <li>Supported 0.019</li>
-        
-        <li>Refuted 0.953</li>
-        
-        <li>NEE 0.015</li>
-        
-        <li>Conflicting 0.012</li>
-        
-      </ul>
-      
-    </section>
-    
-  </div>
-  <details>
-    <summary>Evidence</summary>
-    <p>Q: Where was Covid 19 first reported in humans? A: 1st known case of coronavirus traced back to November in China [SEP] Q: Do health professionals have an idea of what started the Covid 19 pandemic? A: Scientists now suspect this coronavirus, SARS-CoV-2, originated in a bat and somehow hopped to another animal, possibly the pangolin, which then passed it on to humans. [SEP] Q: Could Covid 19 have came from a lab? A: Some experts wonder whether a virus under study at a lab could have been accidentally released, something that’s happened in the past. [SEP] Q: What is the date of the claim? A: Se</p>
-  </details>
-</article>
-
-<article class="example">
-  <h3>Claim 416</h3>
-  <p>U.S. citizens should show up at polling places on Election Day and cast an in-person ballot if poll workers can’t confirm that their mail-in ballot was received.</p>
-  <p><strong>True label:</strong> Conflicting Evidence/Cherrypicking</p>
-  <div class="pred-grid">
-    
-    <section class="card">
-      <h3>TF-IDF + LR</h3>
-      
-      <p>Predicted Refuted (incorrect)</p>
-      <ul>
-        
-        <li>Supported 0.308</li>
-        
-        <li>Refuted 0.324</li>
-        
-        <li>NEE 0.076</li>
-        
-        <li>Conflicting 0.292</li>
-        
-      </ul>
-      
-    </section>
-    
-    <section class="card">
-      <h3>SBERT + LR</h3>
-      
-      <p>Predicted Refuted (incorrect)</p>
-      <ul>
-        
-        <li>Supported 0.431</li>
-        
-        <li>Refuted 0.453</li>
-        
-        <li>NEE 4.96e-04</li>
-        
-        <li>Conflicting 0.115</li>
-        
-      </ul>
-      
-    </section>
-    
-  </div>
-  <details>
-    <summary>Evidence</summary>
-    <p>Q: Are absentee/mail-in ballots in US elections tracked? A: Yes Explanation: But in different ways. 19 stets have an online tracking system. [SEP] Q: Is it legal to place an absentee/mail-in vote and then vote at a polling station in the US? A: No Explanation: Whoever votes more than once in an election referred to in paragraph (2) shall be fined not more than $10,000 or imprisoned not more than five years, or both. (2) The prohibition of this subsection applies with respect to any general, special, or primary election held solely or in part for the purpose of selecting or electing any candida</p>
-  </details>
-</article>
-
-<article class="example">
-  <h3>Claim 448</h3>
-  <p>Since 2002, South Africa’s police force has grown by 50%.</p>
-  <p><strong>True label:</strong> Refuted</p>
-  <div class="pred-grid">
-    
-    <section class="card">
-      <h3>TF-IDF + LR</h3>
-      
-      <p>Predicted Supported (incorrect)</p>
-      <ul>
-        
-        <li>Supported 0.745</li>
-        
-        <li>Refuted 0.123</li>
-        
-        <li>NEE 0.091</li>
-        
-        <li>Conflicting 0.042</li>
-        
-      </ul>
-      
-    </section>
-    
-    <section class="card">
-      <h3>SBERT + LR</h3>
-      
-      <p>Predicted Supported (incorrect)</p>
-      <ul>
-        
-        <li>Supported 0.902</li>
-        
-        <li>Refuted 0.005</li>
-        
-        <li>NEE 0.092</li>
-        
-        <li>Conflicting 2.88e-04</li>
-        
-      </ul>
-      
-    </section>
-    
-  </div>
-  <details>
-    <summary>Evidence</summary>
-    <p>Q: How many people were employed in the SA police force in 2002/03 A: 132,310 [SEP] Q: How many people were employed in SA police force in 2018/19 A: 192,277 [SEP] Q: What is the percentage growth in the SA police force between 2002 to 2019 A: 45.3%</p>
-  </details>
-</article>
-
-<article class="example">
-  <h3>Claim 456</h3>
-  <p>A crowdfunding campaign on the Christian site GiveSendGo solicited donations to help Kyle Rittenhouse, a 17-year-old accused of killing two people at a protest in Kenosha, Wisconsin.</p>
-  <p><strong>True label:</strong> Supported</p>
-  <div class="pred-grid">
-    
-    <section class="card">
-      <h3>TF-IDF + LR</h3>
-      
-      <p>Predicted Refuted (incorrect)</p>
-      <ul>
-        
-        <li>Supported 0.297</li>
-        
-        <li>Refuted 0.488</li>
-        
-        <li>NEE 0.105</li>
-        
-        <li>Conflicting 0.110</li>
-        
-      </ul>
-      
-    </section>
-    
-    <section class="card">
-      <h3>SBERT + LR</h3>
-      
-      <p>Predicted Supported (correct)</p>
-      <ul>
-        
-        <li>Supported 0.771</li>
-        
-        <li>Refuted 0.075</li>
-        
-        <li>NEE 0.018</li>
-        
-        <li>Conflicting 0.136</li>
-        
-      </ul>
-      
-    </section>
-    
-  </div>
-  <details>
-    <summary>Evidence</summary>
-    <p>Q: What is GiveSendGo A: It is a Christian crowdfunding website [SEP] Q: Was there a crowdfunding account for Kyle Rittenhouse A: Wisconsin has a Christian crowdfunding site set up for his legal defense with over $80,000 raised! [SEP] Q: On what platform was the crowdfunding account set up for Kyle Rittenhouse A: A self-described Christian fundraising site, GiveSendGo, said on Friday it has raised more than $100,000 for Rittenhouse’s defense.</p>
-  </details>
-</article>
-
+</div>
 
 
   </main>
   <footer>
-    <p>Decision-support prototype for CMPE 257. It is not a source of truth.</p>
+    <p>CMPE 257 · decision support, not a truth oracle.</p>
   </footer>
   <script src="assets/tabs.js"></script>
+  <script src="assets/interact.js?v=3"></script>
 </body>
 </html>

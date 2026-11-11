@@ -4,14 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Data · TruthTrace</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css?v=4">
+  <script>
+    try {
+      var savedTheme = localStorage.getItem("truthtrace-theme");
+      if (savedTheme === "light" || savedTheme === "dark") {
+        document.documentElement.setAttribute("data-theme", savedTheme);
+      }
+    } catch (error) {}
+  </script>
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="brand">
       <a href="index.html">TruthTrace</a>
-      <p>Evidence-based claim verification</p>
     </div>
     <nav aria-label="Primary">
       
@@ -29,28 +36,28 @@
       
       <a href="team.html" >Team</a>
       
+      <button type="button" id="theme-toggle" class="theme-toggle">Dark mode</button>
     </nav>
   </header>
   <main id="content">
     
 <h1>Data</h1>
-<p>AVeriTeC is a real-world claim verification dataset. Schlichtkrull, Guo, and Vlachos describe it as 4,568 claims from 50 fact-checking organizations. Annotators write questions and answers that serve as evidence. The paper is <a href="https://arxiv.org/abs/2305.13117">arXiv:2305.13117</a>. The official release is <a href="https://github.com/MichSchli/AVeriTeC">MichSchli/AVeriTeC</a>.</p>
-<p>The official test labels are not public. This project trains on the train split and evaluates on the dev split, saved here as the test set. The license is CC BY-NC 4.0 (non-commercial).</p>
+<p class="lede">AVeriTeC: 4,568 claims, 50 organizations. Train for fitting, dev for evaluation. <a href="https://arxiv.org/abs/2305.13117">Paper</a> · <a href="https://github.com/MichSchli/AVeriTeC">Release</a> · CC BY-NC 4.0.</p>
 
 <h2>Preprocessing</h2>
-<ol>
-  <li>Normalize unicode to NFKC, collapse whitespace, and strip each text field.</li>
-  <li>Map labels onto the four verdicts, including case variants, "Not Enough Information", and "Conflicting Evidence".</li>
-  <li>Drop rows with an empty claim or a blank label.</li>
-  <li>Deduplicate by lowercased claim inside each split, keeping the first copy.</li>
-  <li>Remove any dev claim that also appears in train.</li>
-  <li>Build evidence from each question and its first three answers, as "Q: … A: …". Boolean answers keep a non-empty explanation. Claims with no usable pair get a no-evidence placeholder.</li>
-  <li>Leave the justification field out of every column. It restates the verdict.</li>
+<ol class="tight">
+  <li>Normalize text</li>
+  <li>Map the four verdicts</li>
+  <li>Drop empty claims and blank labels</li>
+  <li>Deduplicate claims</li>
+  <li>Remove train overlap from dev</li>
+  <li>Evidence = first three answers per question</li>
+  <li>Justification is never a feature</li>
 </ol>
 
 <h2>Processed counts</h2>
 
-<p>Source used for the raw files: chenxwh_hf.</p>
+<p class="fine">chenxwh_hf</p>
 <div class="table-wrap">
   <table>
     <thead>
@@ -154,56 +161,54 @@
 
 
 <figure>
-  <img src="assets/figures/eda_class_distribution.png" alt="Train and test class counts, with the within-split share on each bar.">
-  <figcaption>Train and test class counts, with the within-split share on each bar.</figcaption>
+  <img src="assets/figures/eda_class_distribution.png" alt="Class counts">
+  <figcaption>Class counts</figcaption>
 </figure>
 
 
 
 <figure>
-  <img src="assets/figures/eda_claim_length.png" alt="Claim length in words, by split.">
-  <figcaption>Claim length in words, by split.</figcaption>
+  <img src="assets/figures/eda_claim_length.png" alt="Claim length">
+  <figcaption>Claim length</figcaption>
 </figure>
 
 
 
 <figure>
-  <img src="assets/figures/eda_evidence_length.png" alt="Evidence length in words. Zero means the claim had no usable evidence.">
-  <figcaption>Evidence length in words. Zero means the claim had no usable evidence.</figcaption>
+  <img src="assets/figures/eda_evidence_length.png" alt="Evidence length">
+  <figcaption>Evidence length</figcaption>
 </figure>
 
 
 
 <figure>
-  <img src="assets/figures/eda_missing_evidence_by_class.png" alt="Share of claims with no usable question-answer evidence.">
-  <figcaption>Share of claims with no usable question-answer evidence.</figcaption>
+  <img src="assets/figures/eda_missing_evidence_by_class.png" alt="Missing evidence">
+  <figcaption>Missing evidence</figcaption>
 </figure>
 
 
 
 <figure>
-  <img src="assets/figures/eda_n_qa_by_class.png" alt="Number of question-answer pairs per class.">
-  <figcaption>Number of question-answer pairs per class.</figcaption>
+  <img src="assets/figures/eda_n_qa_by_class.png" alt="Question-answer pairs">
+  <figcaption>Question-answer pairs</figcaption>
 </figure>
 
 
 
 <figure>
-  <img src="assets/figures/eda_nee_phrase_check.png" alt="Share of evidence containing a stock &#39;no answer&#39; phrase.">
-  <figcaption>Share of evidence containing a stock &#39;no answer&#39; phrase.</figcaption>
+  <img src="assets/figures/eda_nee_phrase_check.png" alt="Stock &#39;no answer&#39; phrase">
+  <figcaption>Stock &#39;no answer&#39; phrase</figcaption>
 </figure>
 
 
 
-<div class="callout">
-  <strong>Annotation shortcut and leakage</strong>
-  Some evidence texts contain stock phrases such as "no answer could be found". The phrase figure is there so that shortcut is visible, especially for Not Enough Evidence. The justification string is never used as a feature, and claims that occur in both splits are removed from the evaluation split.
-</div>
+<p class="disclaimer">Watch the “no answer” phrase. It is a shortcut for Not Enough Evidence. Justification never enters the features.</p>
 
   </main>
   <footer>
-    <p>Decision-support prototype for CMPE 257. It is not a source of truth.</p>
+    <p>CMPE 257 · decision support, not a truth oracle.</p>
   </footer>
   <script src="assets/tabs.js"></script>
+  <script src="assets/interact.js?v=3"></script>
 </body>
 </html>

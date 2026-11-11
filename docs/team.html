@@ -4,14 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Team · TruthTrace</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css?v=4">
+  <script>
+    try {
+      var savedTheme = localStorage.getItem("truthtrace-theme");
+      if (savedTheme === "light" || savedTheme === "dark") {
+        document.documentElement.setAttribute("data-theme", savedTheme);
+      }
+    } catch (error) {}
+  </script>
 </head>
 <body>
   <a class="skip" href="#content">Skip to content</a>
   <header class="site-header">
     <div class="brand">
       <a href="index.html">TruthTrace</a>
-      <p>Evidence-based claim verification</p>
     </div>
     <nav aria-label="Primary">
       
@@ -29,20 +36,20 @@
       
       <a href="team.html" aria-current="page">Team</a>
       
+      <button type="button" id="theme-toggle" class="theme-toggle">Dark mode</button>
     </nav>
   </header>
   <main id="content">
     
-<h1>Team and references</h1>
-<p>TruthTrace is a CMPE 257 project by Krati Jain and Prajakta Jivanrao Ketkar.</p>
+<h1>Team</h1>
 <div class="cards">
-  <article class="card">
+  <article class="card tone-tfidf">
     <h3>Krati Jain</h3>
-    <p>Stage 1: preprocessing, exploratory analysis, TF-IDF + logistic regression, and this website.</p>
+    <p>Stage 1 · data, TF-IDF, site</p>
   </article>
-  <article class="card">
+  <article class="card tone-sbert">
     <h3>Prajakta Jivanrao Ketkar</h3>
-    <p>Stage 2: Sentence-BERT + logistic regression, comparison, error analysis, and the live demo.</p>
+    <p>Stage 2 · Sentence-BERT, comparison, errors</p>
   </article>
 </div>
 
@@ -63,8 +70,9 @@
 
   </main>
   <footer>
-    <p>Decision-support prototype for CMPE 257. It is not a source of truth.</p>
+    <p>CMPE 257 · decision support, not a truth oracle.</p>
   </footer>
   <script src="assets/tabs.js"></script>
+  <script src="assets/interact.js?v=3"></script>
 </body>
 </html>
