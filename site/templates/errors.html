@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Error analysis</h1>
-<p>Stage 2 samples misclassified claims, tags a likely reason, and lists cases where the two models disagree. Manual reasons are left blank for the team to fill in.</p>
+<h1>Errors</h1>
 
 <h2>Reason counts</h2>
 {% if reason_fig.pending %}
@@ -20,10 +19,13 @@
 {% else %}
 {% for row in block.rows %}
 <article class="example">
-  <h3>Claim {{ row.claim_id }}</h3>
-  <p>{{ row.claim }}</p>
-  <p>True: {{ row.true_label }}. TF-IDF: {{ row.pred_tfidf }}. SBERT: {{ row.pred_sbert }}.</p>
-  <p>Auto reason: {{ row.auto_reason }}</p>
+  <p class="claim-kicker">Claim {{ row.claim_id }} · {{ row.auto_reason }}</p>
+  <p class="claim-text">{{ row.claim }}</p>
+  <p class="chips">
+    <span class="chip v-{{ row.true_slug }}">True {{ row.true_label }}</span>
+    <span class="chip v-{{ row.tfidf_slug }}">TF-IDF {{ row.pred_tfidf }}</span>
+    <span class="chip v-{{ row.sbert_slug }}">SBERT {{ row.pred_sbert }}</span>
+  </p>
   <details>
     <summary>Evidence</summary>
     <p>{{ row.evidence }}</p>
@@ -33,10 +35,12 @@
 {% endif %}
 {% endfor %}
 
-<h2>Summary</h2>
-{% if summary.pending %}
-<div class="pending" role="status">{{ summary.message }}</div>
-{% else %}
-<pre>{{ summary.text }}</pre>
-{% endif %}
+<details class="notes">
+  <summary>Full notes</summary>
+  {% if summary.pending %}
+  <div class="pending" role="status">{{ summary.message }}</div>
+  {% else %}
+  <pre>{{ summary.text }}</pre>
+  {% endif %}
+</details>
 {% endblock %}

@@ -1,25 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Data</h1>
-<p>AVeriTeC is a real-world claim verification dataset. Schlichtkrull, Guo, and Vlachos describe it as 4,568 claims from 50 fact-checking organizations. Annotators write questions and answers that serve as evidence. The paper is <a href="https://arxiv.org/abs/2305.13117">arXiv:2305.13117</a>. The official release is <a href="https://github.com/MichSchli/AVeriTeC">MichSchli/AVeriTeC</a>.</p>
-<p>The official test labels are not public. This project trains on the train split and evaluates on the dev split, saved here as the test set. The license is CC BY-NC 4.0 (non-commercial).</p>
+<p class="lede">AVeriTeC: 4,568 claims, 50 organizations. Train for fitting, dev for evaluation. <a href="https://arxiv.org/abs/2305.13117">Paper</a> · <a href="https://github.com/MichSchli/AVeriTeC">Release</a> · CC BY-NC 4.0.</p>
 
 <h2>Preprocessing</h2>
-<ol>
-  <li>Normalize unicode to NFKC, collapse whitespace, and strip each text field.</li>
-  <li>Map labels onto the four verdicts, including case variants, "Not Enough Information", and "Conflicting Evidence".</li>
-  <li>Drop rows with an empty claim or a blank label.</li>
-  <li>Deduplicate by lowercased claim inside each split, keeping the first copy.</li>
-  <li>Remove any dev claim that also appears in train.</li>
-  <li>Build evidence from each question and its first three answers, as "Q: … A: …". Boolean answers keep a non-empty explanation. Claims with no usable pair get a no-evidence placeholder.</li>
-  <li>Leave the justification field out of every column. It restates the verdict.</li>
+<ol class="tight">
+  <li>Normalize text</li>
+  <li>Map the four verdicts</li>
+  <li>Drop empty claims and blank labels</li>
+  <li>Deduplicate claims</li>
+  <li>Remove train overlap from dev</li>
+  <li>Evidence = first three answers per question</li>
+  <li>Justification is never a feature</li>
 </ol>
 
 <h2>Processed counts</h2>
 {% if report.pending %}
 <div class="pending" role="status">{{ report.message }}</div>
 {% else %}
-<p>Source used for the raw files: {{ report.source }}.</p>
+<p class="fine">{{ report.source }}</p>
 <div class="table-wrap">
   <table>
     <thead>
@@ -95,8 +94,5 @@
 {% endif %}
 {% endfor %}
 
-<div class="callout">
-  <strong>Annotation shortcut and leakage</strong>
-  Some evidence texts contain stock phrases such as "no answer could be found". The phrase figure is there so that shortcut is visible, especially for Not Enough Evidence. The justification string is never used as a feature, and claims that occur in both splits are removed from the evaluation split.
-</div>
+<p class="disclaimer">Watch the “no answer” phrase. It is a shortcut for Not Enough Evidence. Justification never enters the features.</p>
 {% endblock %}
