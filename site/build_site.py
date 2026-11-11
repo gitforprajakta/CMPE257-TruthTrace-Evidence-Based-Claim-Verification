@@ -6,6 +6,7 @@ in from results files at build time.
 """
 from __future__ import annotations
 
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -55,14 +56,23 @@ METRIC_SLOTS = [
 ]
 
 HEADLINE_MODELS = ("majority", "tfidf_lr", "sbert_lr")
+MODEL_SLUGS = {"majority": "majority", "tfidf_lr": "tfidf", "sbert_lr": "sbert"}
+LABEL_SLUGS = {
+    "Supported": "supported",
+    "Refuted": "refuted",
+    "Not Enough Evidence": "nee",
+    "Conflicting Evidence/Cherrypicking": "conflicting",
+    "NEE": "nee",
+    "Conflicting": "conflicting",
+}
 
 EDA_FIGURES = [
-    ("eda_class_distribution.png", "Train and test class counts, with the within-split share on each bar."),
-    ("eda_claim_length.png", "Claim length in words, by split."),
-    ("eda_evidence_length.png", "Evidence length in words. Zero means the claim had no usable evidence."),
-    ("eda_missing_evidence_by_class.png", "Share of claims with no usable question-answer evidence."),
-    ("eda_n_qa_by_class.png", "Number of question-answer pairs per class."),
-    ("eda_nee_phrase_check.png", "Share of evidence containing a stock 'no answer' phrase."),
+    ("eda_class_distribution.png", "Class counts"),
+    ("eda_claim_length.png", "Claim length"),
+    ("eda_evidence_length.png", "Evidence length"),
+    ("eda_missing_evidence_by_class.png", "Missing evidence"),
+    ("eda_n_qa_by_class.png", "Question-answer pairs"),
+    ("eda_nee_phrase_check.png", "Stock 'no answer' phrase"),
 ]
 
 RESEARCH_QUESTION = (
@@ -70,6 +80,14 @@ RESEARCH_QUESTION = (
     "model (TF-IDF + logistic regression) for claim verification, given identical "
     "data, splits, tuning budget, and metrics?"
 )
+
+
+def label_slug(label: str) -> str:
+    return LABEL_SLUGS.get(label, "other")
+
+
+def short_label(label: str) -> str:
+    return C.SHORT_LABELS.get(label, label)
 
 
 def pending(relpath: str) -> dict:
@@ -170,10 +188,12 @@ def headline() -> dict:
     rows = []
     for model in HEADLINE_MODELS:
         name = MODEL_NAMES[model]
+        slug = MODEL_SLUGS[model]
         if model in by_model:
             row = by_model[model]
             rows.append(ready(
                 name=name,
+                slug=slug,
                 accuracy=fmt_float(row["accuracy"], 3),
                 macro_f1=fmt_float(row["macro_f1"], 3),
             ))
@@ -182,10 +202,12 @@ def headline() -> dict:
         if metrics is None:
             item = pending(f"results/metrics/{model}_full.json")
             item["name"] = name
+            item["slug"] = slug
             rows.append(item)
             continue
         rows.append(ready(
             name=name,
+            slug=slug,
             accuracy=fmt_float(metrics["accuracy"], 3),
             macro_f1=fmt_float(metrics["macro_f1"], 3),
         ))
@@ -196,7 +218,9 @@ def verdict() -> dict:
     path = C.TABLES_DIR / "verdict.md"
     if not path.exists():
         return pending("results/tables/verdict.md")
-    return ready(text=path.read_text(encoding="utf-8").strip())
+    text = path.read_text(encoding="utf-8").strip()
+    parts = re.split(r"(?<=\.)\s+(?=[A-Z])", text)
+    return ready(text=text, line=parts[-1] if parts else text)
 
 
 def preprocess_view() -> dict:
@@ -300,13 +324,19 @@ def error_block(title: str, filename: str) -> dict:
         reason = str(row.get("auto_reason", ""))
         if "who_wins" in frame.columns and pd.notna(row.get("who_wins")):
             reason = f"{reason} ({row['who_wins']})"
+        true_label = str(row.get("true", ""))
+        pred_tfidf = str(row.get("pred_tfidf", ""))
+        pred_sbert = str(row.get("pred_sbert", ""))
         rows.append({
             "claim_id": str(row.get("claim_id", "")),
             "claim": str(row.get("claim", "")),
-            "true_label": str(row.get("true", "")),
-            "pred_tfidf": str(row.get("pred_tfidf", "")),
-            "pred_sbert": str(row.get("pred_sbert", "")),
-            "auto_reason": reason,
+            "true_label": short_label(true_label),
+            "true_slug": label_slug(true_label),
+            "pred_tfidf": short_label(pred_tfidf),
+            "tfidf_slug": label_slug(pred_tfidf),
+            "pred_sbert": short_label(pred_sbert),
+            "sbert_slug": label_slug(pred_sbert),
+            "auto_reason": reason.replace("_", " "),
             "evidence": evidence,
         })
     return ready(title=title, rows=rows)
@@ -318,7 +348,11 @@ def _proba_items(row: pd.Series, prefix: str) -> list[dict]:
         column = f"{prefix}proba_{label}"
         if column not in row.index or pd.isna(row[column]):
             continue
-        items.append({"label": C.SHORT_LABELS[label], "value": fmt_float(row[column], 3)})
+        items.append({
+            "label": C.SHORT_LABELS[label],
+            "slug": label_slug(label),
+            "value": fmt_float(row[column], 3),
+        })
     return items
 
 
@@ -326,11 +360,15 @@ def _model_card(row: pd.Series, name: str, pred_col: str, correct_col: str, pref
     if pred_col not in row.index or pd.isna(row[pred_col]):
         card = pending(relpath)
         card["name"] = name
+        card["slug"] = "tfidf" if "TF-IDF" in name else "sbert"
         return card
     correct = int(row[correct_col]) == 1
+    prediction = str(row[pred_col])
     return ready(
         name=name,
-        pred=str(row[pred_col]),
+        slug="tfidf" if "TF-IDF" in name else "sbert",
+        pred=short_label(prediction),
+        pred_slug=label_slug(prediction),
         outcome="correct" if correct else "incorrect",
         probabilities=_proba_items(row, prefix),
     )
@@ -378,15 +416,21 @@ def demo_examples() -> dict:
         evidence = str(row["evidence_text"])
         if len(evidence) > 600:
             evidence = evidence[:600]
+        models = [
+            _model_card(row, "TF-IDF + LR", "y_pred", "correct", "", "results/predictions/tfidf_lr_full.csv"),
+            _model_card(row, "SBERT + LR", "sbert_y_pred", "sbert_correct", "sbert_", sbert_rel),
+        ]
+        true_label = str(row["label"])
+        predictions = [model["pred"] for model in models if not model.get("pending") and model.get("pred")]
         rows.append({
             "claim_id": str(int(row["claim_id"])),
             "claim": str(row["claim"]),
-            "true_label": str(row["label"]),
+            "true_label": true_label,
+            "true_short": short_label(true_label),
+            "true_slug": label_slug(true_label),
             "evidence": evidence,
-            "models": [
-                _model_card(row, "TF-IDF + LR", "y_pred", "correct", "", "results/predictions/tfidf_lr_full.csv"),
-                _model_card(row, "SBERT + LR", "sbert_y_pred", "sbert_correct", "sbert_", sbert_rel),
-            ],
+            "models": models,
+            "disagree": "yes" if len(predictions) >= 2 and len(set(predictions)) > 1 else "no",
         })
     return ready(rows=rows)
 
@@ -410,7 +454,7 @@ def copy_assets() -> list[dict]:
         folder.mkdir(parents=True, exist_ok=True)
     static_out = DOCS_DIR / "assets"
     static_out.mkdir(parents=True, exist_ok=True)
-    for name in ("style.css", "tabs.js"):
+    for name in ("style.css", "tabs.js", "interact.js"):
         shutil.copyfile(STATIC_DIR / name, static_out / name)
     if C.FIGURES_DIR.exists():
         for path in sorted(C.FIGURES_DIR.glob("*.png")):
@@ -493,7 +537,13 @@ def build() -> None:
                 else pending("results/error_analysis/summary.md")
             ),
         }),
-        "demo.html": ("Demo", {"examples": demo_examples()}),
+        "demo.html": ("Demo", {
+            "examples": demo_examples(),
+            "verdict_choices": [
+                {"label": label, "short": C.SHORT_LABELS[label], "slug": label_slug(label)}
+                for label in C.LABELS
+            ],
+        }),
         "team.html": ("Team", {}),
     }
     for filename, (title, extra) in pages.items():
