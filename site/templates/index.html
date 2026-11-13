@@ -1,25 +1,151 @@
-{% extends "base.html" %}
-{% block content %}
-<h1>Can a semantic model beat TF-IDF?</h1>
-<div class="cards">
-  {% for row in headline.rows %}
-  <article class="card tone-{{ row.slug }}">
-    <h3>{{ row.name }}</h3>
-    {% if row.pending %}
-    <div class="pending" role="status">{{ row.message }}</div>
-    {% else %}
-    <p class="metric-label">Accuracy</p>
-    <p class="metric">{{ row.accuracy }}</p>
-    <p class="metric-label">Macro-F1</p>
-    <p class="metric">{{ row.macro_f1 }}</p>
-    {% endif %}
-  </article>
-  {% endfor %}
-</div>
-{% if verdict.pending %}
-<div class="pending" role="status">{{ verdict.message }}</div>
-{% else %}
-<p class="verdict-line">{{ verdict.line }}</p>
-{% endif %}
-<p class="disclaimer">Decision support only. Not a truth oracle.</p>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TruthTrace</title>
+  <meta name="description" content="Evidence-based claim verification. Decision support, not a truth oracle.">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip" href="#overview">Skip to content</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="topbar">
+  <header class="nav">
+    <a class="brand" href="#overview">TruthTrace</a>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <nav id="nav-links" aria-label="On this page">
+      <a href="#overview">Overview</a>
+      <a href="#results">Results</a>
+      <a href="#ablation">Ablation</a>
+      <a href="#confusion">Confusion</a>
+      <a href="#statistics">Statistics</a>
+      <a href="#claims">Claims</a>
+      <a href="#errors">Errors</a>
+      <a href="#methods">Methods</a>
+      <a href="#data">Data</a>
+      <a href="#team">Team</a>
+    </nav>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false">Dark mode</button>
+  </header>
+  <div class="banner" role="note">Decision support only. TruthTrace does not decide what is true.</div>
+  </div>
+  <main id="overview">
+    <section class="hero reveal">
+      <p class="kicker" id="hero-kicker"></p>
+      <h1 id="hero-title"></h1>
+      <p class="question" id="hero-question"></p>
+      <div class="hero-metrics" id="hero-metrics"></div>
+    </section>
+
+    <section id="results" class="reveal">
+      <h2>Model comparison</h2>
+      <p class="lede">Accuracy, macro-F1, and weighted-F1. Error bars are the saved bootstrap interval on macro-F1.</p>
+      <div class="segment" role="tablist" aria-label="Comparison view">
+        <button type="button" id="tab-overall" role="tab" aria-selected="true" aria-controls="comparison-panel">Overall</button>
+        <button type="button" id="tab-class" role="tab" aria-selected="false" aria-controls="comparison-panel">Per class</button>
+      </div>
+      <div id="comparison-panel" role="tabpanel">
+        <div id="comparison-mount"></div>
+      </div>
+      <p class="sr-only" id="comparison-summary" aria-live="polite"></p>
+    </section>
+
+    <section id="ablation" class="reveal">
+      <h2>Input-mode ablation</h2>
+      <p class="lede">The same classifiers, reading the claim, the evidence, or both.</p>
+      <div class="segment" id="mode-tabs" role="tablist" aria-label="Input mode"></div>
+      <div id="ablation-mount"></div>
+    </section>
+
+    <section id="confusion" class="reveal">
+      <h2>Confusion matrix</h2>
+      <p class="lede">Rows are the true verdict. Columns are the predicted verdict.</p>
+      <div class="toolbar">
+        <label>Model
+          <select id="cm-model"></select>
+        </label>
+        <div class="segment" role="tablist" aria-label="Matrix scale">
+          <button type="button" id="cm-raw" role="tab" aria-selected="true">Counts</button>
+          <button type="button" id="cm-share" role="tab" aria-selected="false">Row share</button>
+        </div>
+      </div>
+      <div id="confusion-mount"></div>
+      <p id="cm-detail" class="detail" aria-live="polite"></p>
+    </section>
+
+    <section id="statistics" class="reveal">
+      <h2>Statistics</h2>
+      <p class="lede">Paired comparison of the two full models on the same claims.</p>
+      <div class="split" id="statistics-mount"></div>
+    </section>
+
+    <section id="claims" class="reveal">
+      <h2>Claim explorer</h2>
+      <p class="lede">Saved test predictions. Search, then filter by the true verdict, by whether a model was right, or by disagreement.</p>
+      <div id="claims-mount"></div>
+    </section>
+
+    <section id="try" class="reveal">
+      <h2>Try a new claim</h2>
+      <p class="lede">This page only replays predictions that were already computed. It does not run a model in the browser.</p>
+      <div class="callout">
+        <p>Live inference is the Streamlit demo. From the repository root, run <code>make demo</code>.</p>
+      </div>
+    </section>
+
+    <section id="errors" class="reveal">
+      <h2>Error analysis</h2>
+      <p class="lede">Automatic reason tags on the saved misclassification sample. Open a row to read the evidence.</p>
+      <div id="errors-mount"></div>
+    </section>
+
+    <section id="methods" class="reveal">
+      <h2>Methods</h2>
+      <p class="lede">Hover or focus a stage to read what it does. Both pipelines share the evaluation protocol below.</p>
+      <div id="pipelines"></div>
+      <p id="method-note" class="detail" aria-live="polite"></p>
+      <p id="protocol" class="callout"></p>
+    </section>
+
+    <section id="data" class="reveal">
+      <h2>Data</h2>
+      <p class="lede">AVeriTeC claims with fact-checker question-answer evidence. Counts and lengths below are read from the processed release, not drawn by hand.</p>
+      <div id="data-mount"></div>
+      <aside class="callout">
+        <h3>Leakage precautions</h3>
+        <p>The justification string is never used as a feature. Claims that occur in both splits are removed from the dev split. Term weights for TF-IDF are fit inside each training fold.</p>
+      </aside>
+    </section>
+
+    <section id="team" class="reveal">
+      <h2>Team and references</h2>
+      <div class="team-grid">
+        <article>
+          <h3>Krati Jain</h3>
+          <p>Preprocessing, exploratory analysis, TF-IDF + logistic regression, and this site.</p>
+        </article>
+        <article>
+          <h3>Prajakta Jivanrao Ketkar</h3>
+          <p>Sentence-BERT + logistic regression, comparison, error analysis, and the live demo.</p>
+        </article>
+      </div>
+      <p class="kicker" id="course-line"></p>
+      <ul id="references"></ul>
+    </section>
+  </main>
+  <footer>
+    <p id="footer-license"></p>
+  </footer>
+  <div id="drawer" class="drawer" hidden role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <div class="drawer-panel">
+      <button type="button" id="drawer-close">Close</button>
+      <h3 id="drawer-title"></h3>
+      <div id="drawer-body"></div>
+    </div>
+  </div>
+  <script src="assets/vendor/chart.umd.js"></script>
+  <script>window.TT_DATA = {{ data_json | safe }};</script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
